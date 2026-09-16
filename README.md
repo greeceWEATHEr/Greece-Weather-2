@@ -18,7 +18,7 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#071b2d,#0d304b);
+  background:linear-gradient(180deg,#071a2d,#0d304b);
   color:white;
 }
 
@@ -54,18 +54,20 @@ header p{
   flex:1;
   min-width:0;
   padding:14px;
-  border:0;
+  border:none;
   border-radius:12px;
   font-size:16px;
+  outline:none;
 }
 
 .search button{
-  border:0;
+  border:none;
   border-radius:12px;
   padding:0 20px;
   background:#2196f3;
   color:white;
   font-size:16px;
+  cursor:pointer;
 }
 
 .section-title{
@@ -81,12 +83,17 @@ header p{
 }
 
 .city-buttons button{
-  border:0;
+  border:none;
   border-radius:10px;
   padding:10px 14px;
   background:#173d5c;
   color:white;
   cursor:pointer;
+  font-size:14px;
+}
+
+.city-buttons button:hover{
+  background:#245b84;
 }
 
 .current{
@@ -108,8 +115,8 @@ header p{
 }
 
 .status{
-  opacity:.9;
   font-size:18px;
+  opacity:.9;
 }
 
 .forecast{
@@ -132,20 +139,20 @@ header p{
 }
 
 .weather-icon{
-  font-size:34px;
+  font-size:38px;
   margin:6px 0;
 }
 
 .weather-text{
+  min-height:35px;
   font-size:14px;
-  min-height:34px;
   opacity:.9;
 }
 
 .max{
   font-size:23px;
   font-weight:bold;
-  margin-top:7px;
+  margin-top:8px;
 }
 
 .min{
@@ -155,14 +162,14 @@ header p{
 
 .rain{
   margin-top:9px;
-  font-size:14px;
-  color:#a8ddff;
+  font-size:13px;
+  color:#9edbff;
 }
 
 .snow{
   margin-top:4px;
-  font-size:14px;
-  color:#e8f7ff;
+  font-size:13px;
+  color:#e8f8ff;
 }
 
 .loading{
@@ -209,8 +216,6 @@ footer{
 <div class="container">
 
 
-<!-- SEARCH -->
-
 <div class="search">
 
 <input
@@ -226,8 +231,6 @@ placeholder="Αναζήτησε πόλη ή περιοχή..."
 </div>
 
 
-<!-- CITIES -->
-
 <div class="section-title">
 Μεγάλες πόλεις
 </div>
@@ -235,23 +238,14 @@ placeholder="Αναζήτησε πόλη ή περιοχή..."
 <div class="city-buttons">
 
 <button data-name="Αθήνα" data-lat="37.9838" data-lon="23.7275">Αθήνα</button>
-
 <button data-name="Θεσσαλονίκη" data-lat="40.6401" data-lon="22.9444">Θεσσαλονίκη</button>
-
 <button data-name="Πάτρα" data-lat="38.2466" data-lon="21.7346">Πάτρα</button>
-
 <button data-name="Ηράκλειο" data-lat="35.3387" data-lon="25.1442">Ηράκλειο</button>
-
 <button data-name="Λάρισα" data-lat="39.6390" data-lon="22.4191">Λάρισα</button>
-
 <button data-name="Βόλος" data-lat="39.3610" data-lon="22.9425">Βόλος</button>
-
 <button data-name="Ιωάννινα" data-lat="39.6650" data-lon="20.8537">Ιωάννινα</button>
-
 <button data-name="Καβάλα" data-lat="40.9396" data-lon="24.4018">Καβάλα</button>
-
 <button data-name="Ρόδος" data-lat="36.4349" data-lon="28.2176">Ρόδος</button>
-
 <button data-name="Χανιά" data-lat="35.5138" data-lon="24.0180">Χανιά</button>
 
 </div>
@@ -264,29 +258,18 @@ placeholder="Αναζήτησε πόλη ή περιοχή..."
 <div class="city-buttons">
 
 <button data-name="Κοζάνη" data-lat="40.3007" data-lon="21.7889">Κοζάνη</button>
-
 <button data-name="Τρίκαλα" data-lat="39.5556" data-lon="21.7675">Τρίκαλα</button>
-
 <button data-name="Σέρρες" data-lat="41.0856" data-lon="23.5483">Σέρρες</button>
-
 <button data-name="Αλεξανδρούπολη" data-lat="40.8457" data-lon="25.8739">Αλεξανδρούπολη</button>
-
 <button data-name="Κατερίνη" data-lat="40.2726" data-lon="22.5025">Κατερίνη</button>
-
 <button data-name="Λαμία" data-lat="38.9000" data-lon="22.4340">Λαμία</button>
-
 <button data-name="Χαλκίδα" data-lat="38.4635" data-lon="23.5994">Χαλκίδα</button>
-
 <button data-name="Καλαμάτα" data-lat="37.0390" data-lon="22.1142">Καλαμάτα</button>
-
 <button data-name="Μυτιλήνη" data-lat="39.1067" data-lon="26.5547">Μυτιλήνη</button>
-
 <button data-name="Κόρινθος" data-lat="37.9386" data-lon="22.9322">Κόρινθος</button>
 
 </div>
 
-
-<!-- CURRENT -->
 
 <div class="current">
 
@@ -305,8 +288,6 @@ placeholder="Αναζήτησε πόλη ή περιοχή..."
 </div>
 
 
-<!-- 15 DAY -->
-
 <div class="section-title">
 15ήμερη πρόγνωση
 </div>
@@ -320,14 +301,11 @@ placeholder="Αναζήτησε πόλη ή περιοχή..."
 </div>
 
 
-<!-- MAP -->
-
 <div class="section-title">
 Τοποθεσία
 </div>
 
 <div id="weatherMap"></div>
-
 
 </div>
 
@@ -339,145 +317,108 @@ placeholder="Αναζήτησε πόλη ή περιοχή..."
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-
 <script>
 
 /* =====================================
-   SELECTED LOCATION
+   ΕΠΙΛΕΓΜΕΝΗ ΤΟΠΟΘΕΣΙΑ
 ===================================== */
 
 let selectedCity = {
-
-name:"Θεσσαλονίκη",
-
-lat:40.6401,
-
-lon:22.9444
-
+  name:"Θεσσαλονίκη",
+  lat:40.6401,
+  lon:22.9444
 };
 
 
 /* =====================================
-   MAP
+   ΧΑΡΤΗΣ
 ===================================== */
 
 let map;
-
 let marker;
-
 
 function startMap(){
 
-map = L.map("weatherMap")
-.setView(
-[
-selectedCity.lat,
-selectedCity.lon
-],
-9
-);
+  map = L.map("weatherMap").setView(
+    [selectedCity.lat,selectedCity.lon],
+    9
+  );
 
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      maxZoom:18,
+      attribution:"© OpenStreetMap"
+    }
+  ).addTo(map);
 
-L.tileLayer(
-"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-{
-maxZoom:18,
-attribution:"© OpenStreetMap"
-}
-).addTo(map);
-
-
-marker = L.marker(
-[
-selectedCity.lat,
-selectedCity.lon
-]
-)
-.addTo(map)
-.bindPopup(selectedCity.name)
-.openPopup();
-
+  marker = L.marker([
+    selectedCity.lat,
+    selectedCity.lon
+  ])
+  .addTo(map)
+  .bindPopup(selectedCity.name)
+  .openPopup();
 }
 
 
 function updateMap(){
 
-marker
-.setLatLng(
-[
-selectedCity.lat,
-selectedCity.lon
-]
-)
-.bindPopup(selectedCity.name)
-.openPopup();
+  marker
+  .setLatLng([
+    selectedCity.lat,
+    selectedCity.lon
+  ])
+  .bindPopup(selectedCity.name)
+  .openPopup();
 
-
-map.setView(
-[
-selectedCity.lat,
-selectedCity.lon
-],
-10
-);
-
+  map.setView([
+    selectedCity.lat,
+    selectedCity.lon
+  ],10);
 }
 
 
 /* =====================================
-   SELECT CITY
+   ΕΠΙΛΟΓΗ ΠΟΛΗΣ
 ===================================== */
 
 function selectCity(name,lat,lon){
 
-selectedCity={
+  selectedCity = {
+    name:name,
+    lat:Number(lat),
+    lon:Number(lon)
+  };
 
-name:name,
+  document.getElementById("cityName")
+  .textContent=name;
 
-lat:Number(lat),
+  updateMap();
 
-lon:Number(lon)
+  loadCurrentWeather();
 
-};
-
-
-document
-.getElementById("cityName")
-.textContent=name;
-
-
-updateMap();
-
-loadCurrentWeather();
-
-loadForecast();
-
+  loadForecast();
 }
 
 
 /* =====================================
-   CITY BUTTONS
+   ΚΟΥΜΠΙΑ
 ===================================== */
 
 document
 .querySelectorAll(".city-buttons button")
 .forEach(button=>{
 
-button.addEventListener(
-"click",
-()=>{
+  button.addEventListener("click",()=>{
 
-selectCity(
+    selectCity(
+      button.dataset.name,
+      button.dataset.lat,
+      button.dataset.lon
+    );
 
-button.dataset.name,
-
-button.dataset.lat,
-
-button.dataset.lon
-
-);
-
-});
+  });
 
 });
 
@@ -488,771 +429,656 @@ button.dataset.lon
 
 async function loadCurrentWeather(){
 
-const temp=
-document.getElementById("currentTemp");
+  const temp =
+    document.getElementById("currentTemp");
 
-const status=
-document.getElementById("currentStatus");
+  const status =
+    document.getElementById("currentStatus");
 
+  temp.textContent="--";
+  status.textContent="Φόρτωση...";
 
-temp.textContent="--";
+  const url =
+    "https://api.open-meteo.com/v1/forecast"+
+    "?latitude="+selectedCity.lat+
+    "&longitude="+selectedCity.lon+
+    "&current=temperature_2m,weather_code"+
+    "&timezone=auto";
 
-status.textContent="Φόρτωση...";
+  try{
 
+    const response =
+      await fetch(url,{cache:"no-store"});
 
-const url=
+    if(!response.ok)
+      throw new Error("Current weather error");
 
-"https://api.open-meteo.com/v1/forecast"+
+    const data =
+      await response.json();
 
-"?latitude="+selectedCity.lat+
+    temp.textContent =
+      Math.round(
+        data.current.temperature_2m
+      )+"°C";
 
-"&longitude="+selectedCity.lon+
+    const weather =
+      weatherFromCode(
+        data.current.weather_code
+      );
 
-"&current=temperature_2m,weather_code,rain,snowfall,precipitation"+
+    status.textContent =
+      weather.icon+" "+weather.text;
 
-"&timezone=auto";
+  }
+  catch(error){
 
+    console.error(error);
 
-try{
+    status.textContent =
+      "Δεν ήταν δυνατή η φόρτωση.";
 
-const response=
-await fetch(
-url,
-{cache:"no-store"}
-);
-
-
-if(!response.ok)
-throw new Error("API error");
-
-
-const data=
-await response.json();
-
-
-const current=
-data.current;
-
-
-temp.textContent=
-Math.round(
-current.temperature_2m
-)+"°C";
-
-
-status.textContent=
-getWeatherDescription(
-current.weather_code,
-current.snowfall,
-current.rain,
-current.precipitation
-);
-
-}
-
-catch(error){
-
-console.error(error);
-
-status.textContent=
-"Δεν ήταν δυνατή η φόρτωση.";
-
-}
-
+  }
 }
 
 
 /* =====================================
-   WEATHER DESCRIPTION
-   WMO CODES
+   WMO WEATHER CODES
 ===================================== */
 
-function getWeatherDescription(
-code,
-snowfall=0,
-rain=0,
-precipitation=0
-){
-
-/*
-0
-*/
-
-if(code===0)
-return "☀️ Αίθριος";
-
-
-/*
-1
-*/
-
-if(code===1)
-return "🌤️ Κυρίως αίθριος";
-
-
-/*
-2
-*/
-
-if(code===2)
-return "⛅ Μερική συννεφιά";
-
-
-/*
-3
-*/
-
-if(code===3)
-return "☁️ Συννεφιά";
-
-
-/*
-45-48
-*/
-
-if(code===45 || code===48)
-return "🌫️ Ομίχλη";
-
-
-/*
-51-53
-*/
-
-if(code>=51 && code<=53)
-return "🌦️ Ψιλόβροχο";
-
-
-/*
-55
-*/
-
-if(code===55)
-return "🌧️ Έντονο ψιλόβροχο";
-
-
-/*
-56-57
-*/
-
-if(code===56 || code===57)
-return "🌧️ Παγωμένο ψιλόβροχο";
-
-
-/*
-61
-*/
-
-if(code===61)
-return "🌧️ Ελαφριά βροχή";
-
-
-/*
-63
-*/
-
-if(code===63)
-return "🌧️ Βροχή";
-
-
-/*
-65
-*/
-
-if(code===65)
-return "🌧️ Ισχυρή βροχή";
-
-
-/*
-66-67
-*/
-
-if(code===66 || code===67)
-return "🌧️ Παγωμένη βροχή";
-
-
-/*
-71
-*/
-
-if(code===71)
-return "🌨️ Ελαφριά χιονόπτωση";
-
-
-/*
-73
-*/
-
-if(code===73)
-return "❄️ Χιονόπτωση";
-
-
-/*
-75
-*/
-
-if(code===75)
-return "❄️ Ισχυρή χιονόπτωση";
-
-
-/*
-77
-*/
-
-if(code===77)
-return "❄️ Κόκκοι χιονιού";
-
-
-/*
-80
-*/
-
-if(code===80)
-return "🌦️ Ελαφριές μπόρες";
-
-
-/*
-81
-*/
-
-if(code===81)
-return "🌧️ Μπόρες";
-
-
-/*
-82
-*/
-
-if(code===82)
-return "🌧️ Ισχυρές μπόρες";
-
-
-/*
-85
-*/
-
-if(code===85)
-return "🌨️ Ελαφριές μπόρες χιονιού";
-
-
-/*
-86
-*/
-
-if(code===86)
-return "❄️ Ισχυρές μπόρες χιονιού";
-
-
-/*
-95
-*/
-
-if(code===95)
-return "⛈️ Καταιγίδα";
-
-
-/*
-96
-*/
-
-if(code===96)
-return "⛈️ Καταιγίδα με χαλάζι";
-
-
-/*
-99
-*/
-
-if(code===99)
-return "⛈️ Ισχυρή καταιγίδα με χαλάζι";
-
-
-/*
-FALLBACK
-
-Αν υπάρχει snowfall αλλά
-ο κωδικός δεν περιγράφει σωστά
-την κατάσταση, κρατάμε χιόνι.
-*/
-
-if(Number(snowfall)>0)
-return "❄️ Χιονόπτωση";
-
-
-if(Number(rain)>0)
-return "🌧️ Βροχή";
-
-
-if(Number(precipitation)>0)
-return "🌦️ Υετός";
-
-
-return "☁️ Συννεφιά";
-
+function weatherFromCode(code){
+
+  switch(Number(code)){
+
+    case 0:
+      return {
+        icon:"☀️",
+        text:"Αίθριος"
+      };
+
+    case 1:
+      return {
+        icon:"🌤️",
+        text:"Κυρίως αίθριος"
+      };
+
+    case 2:
+      return {
+        icon:"⛅",
+        text:"Μερική συννεφιά"
+      };
+
+    case 3:
+      return {
+        icon:"☁️",
+        text:"Συννεφιά"
+      };
+
+    case 45:
+      return {
+        icon:"🌫️",
+        text:"Ομίχλη"
+      };
+
+    case 48:
+      return {
+        icon:"🌫️",
+        text:"Παγωμένη ομίχλη"
+      };
+
+    case 51:
+      return {
+        icon:"🌦️",
+        text:"Ελαφρύ ψιλόβροχο"
+      };
+
+    case 53:
+      return {
+        icon:"🌦️",
+        text:"Ψιλόβροχο"
+      };
+
+    case 55:
+      return {
+        icon:"🌧️",
+        text:"Ισχυρό ψιλόβροχο"
+      };
+
+    case 56:
+      return {
+        icon:"🌧️",
+        text:"Ελαφρύ παγωμένο ψιλόβροχο"
+      };
+
+    case 57:
+      return {
+        icon:"🌧️",
+        text:"Ισχυρό παγωμένο ψιλόβροχο"
+      };
+
+    case 61:
+      return {
+        icon:"🌦️",
+        text:"Ελαφριά βροχή"
+      };
+
+    case 63:
+      return {
+        icon:"🌧️",
+        text:"Βροχή"
+      };
+
+    case 65:
+      return {
+        icon:"🌧️",
+        text:"Ισχυρή βροχή"
+      };
+
+    case 66:
+      return {
+        icon:"🌧️",
+        text:"Ελαφριά παγωμένη βροχή"
+      };
+
+    case 67:
+      return {
+        icon:"🌧️",
+        text:"Ισχυρή παγωμένη βροχή"
+      };
+
+    case 71:
+      return {
+        icon:"🌨️",
+        text:"Ελαφριά χιονόπτωση"
+      };
+
+    case 73:
+      return {
+        icon:"❄️",
+        text:"Χιονόπτωση"
+      };
+
+    case 75:
+      return {
+        icon:"❄️",
+        text:"Ισχυρή χιονόπτωση"
+      };
+
+    case 77:
+      return {
+        icon:"❄️",
+        text:"Κόκκοι χιονιού"
+      };
+
+    case 80:
+      return {
+        icon:"🌦️",
+        text:"Ελαφριές μπόρες"
+      };
+
+    case 81:
+      return {
+        icon:"🌧️",
+        text:"Μπόρες"
+      };
+
+    case 82:
+      return {
+        icon:"🌧️",
+        text:"Ισχυρές μπόρες"
+      };
+
+    case 85:
+      return {
+        icon:"🌨️",
+        text:"Ελαφριές μπόρες χιονιού"
+      };
+
+    case 86:
+      return {
+        icon:"❄️",
+        text:"Ισχυρές μπόρες χιονιού"
+      };
+
+    case 95:
+      return {
+        icon:"⛈️",
+        text:"Καταιγίδα"
+      };
+
+    case 96:
+      return {
+        icon:"⛈️",
+        text:"Καταιγίδα με χαλάζι"
+      };
+
+    case 99:
+      return {
+        icon:"⛈️",
+        text:"Ισχυρή καταιγίδα με χαλάζι"
+      };
+
+    default:
+      return {
+        icon:"🌤️",
+        text:"Μεταβλητός καιρός"
+      };
+
+  }
 }
 
 
 /* =====================================
-   MODEL FORECAST
+   MODEL DATA
 ===================================== */
 
 async function getModelForecast(model){
 
-const url=
+  const url =
+    "https://api.open-meteo.com/v1/forecast"+
+    "?latitude="+selectedCity.lat+
+    "&longitude="+selectedCity.lon+
+    "&models="+model+
+    "&daily="+
+    "temperature_2m_max,"+
+    "temperature_2m_min,"+
+    "precipitation_sum,"+
+    "rain_sum,"+
+    "snowfall_sum,"+
+    "weather_code"+
+    "&forecast_days=15"+
+    "&timezone=auto";
 
-"https://api.open-meteo.com/v1/forecast"+
+  const response =
+    await fetch(url,{cache:"no-store"});
 
-"?latitude="+selectedCity.lat+
+  if(!response.ok)
+    throw new Error(model+" error");
 
-"&longitude="+selectedCity.lon+
+  const data =
+    await response.json();
 
-"&models="+model+
+  if(
+    data.error ||
+    !data.daily ||
+    !data.daily.time
+  ){
 
-"&daily="+
+    throw new Error(
+      model+" returned no data"
+    );
 
-"temperature_2m_max,"+
-"temperature_2m_min,"+
-"precipitation_sum,"+
-"rain_sum,"+
-"snowfall_sum,"+
-"weather_code"+
+  }
 
-"&forecast_days=15"+
-
-"&timezone=auto";
-
-
-const response=
-await fetch(
-url,
-{cache:"no-store"}
-);
-
-
-if(!response.ok)
-throw new Error(model+" error");
-
-
-const data=
-await response.json();
-
-
-if(
-data.error ||
-!data.daily
-){
-
-throw new Error(
-model+" no data"
-);
-
-}
-
-
-return data.daily;
-
+  return data.daily;
 }
 
 
 /* =====================================
-   15 DAY FORECAST
+   15ΗΜΕΡΗ ΠΡΟΓΝΩΣΗ
 ===================================== */
 
 async function loadForecast(){
 
-const box=
-document.getElementById("forecast");
+  const box =
+    document.getElementById("forecast");
 
+  box.innerHTML =
+    '<div class="loading">Φόρτωση 15ήμερης πρόγνωσης...</div>';
 
-box.innerHTML=
-'<div class="loading">Φόρτωση 15ήμερης πρόγνωσης...</div>';
+  try{
 
+    const [ifs,aifs] =
+      await Promise.all([
 
-try{
+        getModelForecast(
+          "ecmwf_ifs025"
+        ),
 
-const [ifs,aifs]=
-await Promise.all([
+        getModelForecast(
+          "ecmwf_aifs025"
+        )
 
-getModelForecast(
-"ecmwf_ifs025"
-),
+      ]);
 
-getModelForecast(
-"ecmwf_aifs025"
-)
 
-]);
+    const days =
+      Math.min(
+        15,
+        ifs.time.length,
+        aifs.time.length
+      );
 
 
-const days=
-Math.min(
-15,
-ifs.time.length,
-aifs.time.length
-);
+    let html="";
 
 
-let html="";
+    for(let i=0;i<days;i++){
 
+      /*
+       * Θερμοκρασία:
+       * μέσος όρος των δύο μοντέλων
+       */
 
-for(
-let i=0;
-i<days;
-i++
-){
+      const maxTemp =
+        (
+          Number(ifs.temperature_2m_max[i])+
+          Number(aifs.temperature_2m_max[i])
+        )/2;
 
-/*
-TEMPERATURE
-*/
+      const minTemp =
+        (
+          Number(ifs.temperature_2m_min[i])+
+          Number(aifs.temperature_2m_min[i])
+        )/2;
 
-const maxTemp=
-(
-Number(ifs.temperature_2m_max[i])+
-Number(aifs.temperature_2m_max[i])
-)/2;
 
+      /*
+       * ΥΕΤΟΣ:
+       * εμφανίζουμε τον μέσο όρο
+       * των πραγματικών τιμών
+       */
 
-const minTemp=
-(
-Number(ifs.temperature_2m_min[i])+
-Number(aifs.temperature_2m_min[i])
-)/2;
+      const rain =
+        (
+          Number(ifs.rain_sum[i])+
+          Number(aifs.rain_sum[i])
+        )/2;
 
 
-/*
-RAIN
-*/
+      const snow =
+        (
+          Number(ifs.snowfall_sum[i])+
+          Number(aifs.snowfall_sum[i])
+        )/2;
 
-const rain=
-(
-Number(ifs.rain_sum[i])+
-Number(aifs.rain_sum[i])
-)/2;
 
+      /*
+       * WEATHER CODE:
+       *
+       * ΔΕΝ κατασκευάζουμε δικό μας code.
+       *
+       * Χρησιμοποιούμε τον κωδικό
+       * που δίνει το κάθε μοντέλο.
+       *
+       * Για την εμφάνιση επιλέγουμε
+       * τον κωδικό με το μεγαλύτερο
+       * severity.
+       */
 
-/*
-SNOW
-*/
+      const codeIFS =
+        Number(ifs.weather_code[i]);
 
-const snow=
-(
-Number(ifs.snowfall_sum[i])+
-Number(aifs.snowfall_sum[i])
-)/2;
+      const codeAIFS =
+        Number(aifs.weather_code[i]);
 
 
-/*
-PRECIPITATION
-*/
+      /*
+       * Αν υπάρχει πραγματική
+       * χιονόπτωση από κάποιο μοντέλο,
+       * δείχνουμε χιονική κατάσταση
+       * μόνο όταν ο κωδικός του μοντέλου
+       * είναι επίσης χιονικός.
+       */
 
-const precipitation=
-(
-Number(ifs.precipitation_sum[i])+
-Number(aifs.precipitation_sum[i])
-)/2;
+      const snowCodes =
+        [71,73,75,77,85,86];
 
 
-/*
-WEATHER CODE
+      let finalCode;
 
-Χρησιμοποιούμε το πιο
-"έντονο" από τα δύο μοντέλα.
-*/
 
-const code1=
-Number(ifs.weather_code[i]);
+      const ifsSnow =
+        snowCodes.includes(codeIFS);
 
-const code2=
-Number(aifs.weather_code[i]);
+      const aifsSnow =
+        snowCodes.includes(codeAIFS);
 
 
-/*
-SNOW HAS PRIORITY
+      if(ifsSnow && aifsSnow){
 
-Αν οποιοδήποτε μοντέλο
-δίνει χιονόπτωση,
-δεν θα εμφανίσουμε απλά
-"βροχή".
-*/
+        /*
+         * Και τα δύο μοντέλα συμφωνούν
+         * για χιόνι.
+         */
 
-let finalCode;
+        finalCode =
+          codeIFS >= codeAIFS
+          ? codeIFS
+          : codeAIFS;
 
+      }
 
-if(snow>0){
+      else if(ifsSnow && snow > 0){
 
-if(snow<1)
-finalCode=71;
+        finalCode=codeIFS;
 
-else if(snow<4)
-finalCode=73;
+      }
 
-else
-finalCode=75;
+      else if(aifsSnow && snow > 0){
 
-}
+        finalCode=codeAIFS;
 
-else if(rain>0){
+      }
 
-if(rain<2)
-finalCode=61;
+      else{
 
-else if(rain<8)
-finalCode=63;
+        /*
+         * Καμία χιονική ένδειξη.
+         * Κρατάμε τον κωδικό του μοντέλου
+         * με τη μεγαλύτερη κατηγορία WMO.
+         */
 
-else
-finalCode=65;
+        finalCode =
+          Math.max(
+            codeIFS,
+            codeAIFS
+          );
 
-}
+      }
 
-else{
 
-finalCode=
-Math.max(code1,code2);
+      /*
+       * ΗΜΕΡΟΜΗΝΙΑ
+       */
 
-}
+      const date =
+        new Date(
+          ifs.time[i]+"T12:00:00"
+        );
 
+      const dateText =
+        date.toLocaleDateString(
+          "el-GR",
+          {
+            weekday:"short",
+            day:"numeric",
+            month:"short"
+          }
+        );
 
-/*
-DATE
-*/
 
-const date=
-new Date(
-ifs.time[i]+"T12:00:00"
-);
+      /*
+       * ΣΥΜΒΟΛΟ
+       */
 
+      const weather =
+        weatherFromCode(finalCode);
 
-const dateText=
-date.toLocaleDateString(
-"el-GR",
-{
-weekday:"short",
-day:"numeric",
-month:"short"
-}
-);
 
+      /*
+       * CARD
+       */
 
-/*
-ICON + TEXT
-*/
+      html += `
 
-const weather=
-getWeatherDescription(
-finalCode,
-snow,
-rain,
-precipitation
-);
+      <div class="day">
 
+        <div class="day-date">
+          ${dateText}
+        </div>
 
-/*
-EXTRACT ICON
+        <div class="weather-icon">
+          ${weather.icon}
+        </div>
 
-*/
+        <div class="weather-text">
+          ${weather.text}
+        </div>
 
-const icon=
-weather.substring(
-0,
-2
-);
+        <div class="max">
+          ${Math.round(maxTemp)}°C
+        </div>
 
+        <div class="min">
+          Ελάχιστη ${Math.round(minTemp)}°C
+        </div>
 
-const text=
-weather.substring(
-2
-).trim();
+        <div class="rain">
+          🌧️ Βροχή: ${rain.toFixed(1)} mm
+        </div>
 
+        <div class="snow">
+          ❄️ Χιόνι: ${snow.toFixed(1)} cm
+        </div>
 
-/*
-CARD
-*/
+      </div>
 
-html+=`
+      `;
 
-<div class="day">
+    }
 
-<div class="day-date">
-${dateText}
-</div>
 
-<div class="weather-icon">
-${icon}
-</div>
+    box.innerHTML=html;
 
-<div class="weather-text">
-${text}
-</div>
+  }
 
-<div class="max">
-${Math.round(maxTemp)}°C
-</div>
+  catch(error){
 
-<div class="min">
-Ελάχιστη ${Math.round(minTemp)}°C
-</div>
+    console.error(
+      "FORECAST ERROR:",
+      error
+    );
 
-<div class="rain">
-🌧️ ${rain.toFixed(1)} mm
-</div>
+    box.innerHTML=`
 
-<div class="snow">
-❄️ ${snow.toFixed(1)} cm
-</div>
+      <div class="error">
 
-</div>
+        ❌ Δεν φορτώθηκε η πρόγνωση.
 
-`;
+        <br><br>
 
-}
+        Γίνεται νέα προσπάθεια...
 
+      </div>
 
-box.innerHTML=html;
+    `;
 
-}
+    setTimeout(
+      loadForecast,
+      5000
+    );
 
-catch(error){
-
-console.error(
-"FORECAST ERROR:",
-error
-);
-
-
-box.innerHTML=`
-
-<div class="error">
-
-❌ Δεν φορτώθηκε η πρόγνωση.
-
-<br><br>
-
-Γίνεται νέα προσπάθεια...
-
-</div>
-
-`;
-
-
-setTimeout(
-loadForecast,
-5000
-);
-
-}
+  }
 
 }
 
 
 /* =====================================
-   SEARCH
+   ΑΝΑΖΗΤΗΣΗ
 ===================================== */
 
 async function searchPlace(){
 
-const input=
-document.getElementById(
-"searchInput"
-);
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+  const query =
+    input.value.trim();
+
+  if(!query)
+    return;
 
 
-const query=
-input.value.trim();
+  const button =
+    document.getElementById(
+      "searchButton"
+    );
+
+  button.textContent="...";
 
 
-if(!query)
-return;
+  try{
+
+    const url =
+      "https://geocoding-api.open-meteo.com/v1/search"+
+      "?name="+encodeURIComponent(query)+
+      "&count=1"+
+      "&language=el"+
+      "&format=json";
 
 
-const button=
-document.getElementById(
-"searchButton"
-);
+    const response =
+      await fetch(
+        url,
+        {cache:"no-store"}
+      );
 
 
-button.textContent="...";
+    if(!response.ok)
+      throw new Error("Search error");
 
 
-try{
-
-const url=
-
-"https://geocoding-api.open-meteo.com/v1/search"+
-
-"?name="+
-encodeURIComponent(query)+
-
-"&count=1"+
-
-"&language=el"+
-
-"&format=json";
+    const data =
+      await response.json();
 
 
-const response=
-await fetch(
-url,
-{cache:"no-store"}
-);
+    if(
+      !data.results ||
+      data.results.length===0
+    ){
+
+      alert(
+        "Δεν βρέθηκε η περιοχή."
+      );
+
+      return;
+
+    }
 
 
-if(!response.ok)
-throw new Error("Search error");
+    const place =
+      data.results[0];
 
 
-const data=
-await response.json();
+    selectCity(
+      place.name,
+      place.latitude,
+      place.longitude
+    );
 
 
-if(
-!data.results ||
-data.results.length===0
-){
+    input.value="";
 
-alert(
-"Δεν βρέθηκε η περιοχή."
-);
+  }
 
-return;
+  catch(error){
 
-}
+    console.error(error);
 
+    alert(
+      "Δεν ήταν δυνατή η αναζήτηση αυτή τη στιγμή."
+    );
 
-const place=
-data.results[0];
+  }
 
+  finally{
 
-selectCity(
+    button.textContent=
+      "Αναζήτηση";
 
-place.name,
-
-place.latitude,
-
-place.longitude
-
-);
-
-
-input.value="";
-
-
-}
-
-catch(error){
-
-console.error(error);
-
-alert(
-"Δεν ήταν δυνατή η αναζήτηση αυτή τη στιγμή."
-);
-
-}
-
-finally{
-
-button.textContent=
-"Αναζήτηση";
-
-}
+  }
 
 }
 
@@ -1264,8 +1090,8 @@ button.textContent=
 document
 .getElementById("searchButton")
 .addEventListener(
-"click",
-searchPlace
+  "click",
+  searchPlace
 );
 
 
@@ -1276,13 +1102,15 @@ searchPlace
 document
 .getElementById("searchInput")
 .addEventListener(
-"keydown",
-event=>{
+  "keydown",
+  event=>{
 
-if(event.key==="Enter")
-searchPlace();
+    if(event.key==="Enter"){
+      searchPlace();
+    }
 
-});
+  }
+);
 
 
 /* =====================================
