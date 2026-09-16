@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="el">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Greece Weather</title>
 
-<!-- Leaflet για τον πραγματικό διαδραστικό χάρτη -->
 <link
 rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -168,64 +169,14 @@ line-height:1.6;
 font-size:14px;
 }
 
-.mapControls{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:12px;
-}
-
-.mapControls button{
-border:0;
-border-radius:12px;
-padding:13px 16px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.mapControls button.active{
-outline:3px solid rgba(255,255,255,.45);
-}
-
-.mapControls select{
-border:0;
-border-radius:12px;
-padding:12px;
-font-size:15px;
-}
+/* ΑΠΛΟΣ ΧΑΡΤΗΣ */
 
 #weatherMap{
-height:570px;
+height:450px;
 width:100%;
 border-radius:20px;
 overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,.35);
-}
-
-.legend{
-background:rgba(255,255,255,.95);
-color:#111;
-padding:10px;
-border-radius:8px;
-font-size:12px;
-line-height:1.5;
-}
-
-.legendGradient{
-width:180px;
-height:13px;
-margin:5px 0;
-background:linear-gradient(
-90deg,
-#313695,
-#4575b4,
-#74add1,
-#abd9e9,
-#ffffbf,
-#fdae61,
-#f46d43,
-#d73027
-);
 }
 
 footer{
@@ -245,12 +196,13 @@ font-size:53px;
 }
 
 #weatherMap{
-height:470px;
+height:400px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -260,12 +212,14 @@ height:470px;
 <h1>🇬🇷 Greece Weather</h1>
 
 <p>
-15ήμερη πολυμοντελική πρόγνωση για πολλές περιοχές της Ελλάδας
+15ήμερη πρόγνωση για πολλές περιοχές της Ελλάδας
 </p>
 
 </header>
 
+
 <div class="container">
+
 
 <!-- ΑΝΑΖΗΤΗΣΗ -->
 
@@ -285,7 +239,9 @@ placeholder="Αναζήτηση πόλης ή περιοχής..."
 
 <!-- ΜΕΓΑΛΕΣ ΠΟΛΕΙΣ -->
 
-<h2 class="title">🏙️ Μεγάλες πόλεις</h2>
+<h2 class="title">
+🏙️ Μεγάλες πόλεις
+</h2>
 
 <div class="cities">
 
@@ -342,9 +298,11 @@ onclick="loadCity('Χανιά',35.5138,24.018)">
 </div>
 
 
-<!-- ΠΕΡΙΟΧΕΣ -->
+<!-- ΠΕΡΙΣΣΟΤΕΡΕΣ ΠΕΡΙΟΧΕΣ -->
 
-<h2 class="title">📍 Περισσότερες περιοχές</h2>
+<h2 class="title">
+📍 Περισσότερες περιοχές
+</h2>
 
 <div class="cities">
 
@@ -405,15 +363,20 @@ onclick="loadCity('Κόρινθος',37.94,22.9513)">
 
 <section class="current">
 
-<h2 id="cityName">Θεσσαλονίκη</h2>
+<h2 id="cityName">
+Θεσσαλονίκη
+</h2>
 
-<div class="temperature" id="currentTemp">
+<div
+class="temperature"
+id="currentTemp">
 --
 </div>
 
 <div id="condition">
 Φόρτωση...
 </div>
+
 
 <div class="details">
 
@@ -445,10 +408,12 @@ onclick="loadCity('Κόρινθος',37.94,22.9513)">
 <!-- 15 ΗΜΕΡΕΣ -->
 
 <h2 class="title">
-📅 15ήμερη πολυμοντελική πρόγνωση
+📅 15ήμερη πρόγνωση
 </h2>
 
-<div id="forecast" class="forecast">
+<div
+id="forecast"
+class="forecast">
 
 Φόρτωση...
 
@@ -457,85 +422,45 @@ onclick="loadCity('Κόρινθος',37.94,22.9513)">
 
 <div class="info">
 
-<b>📊 Πολυμοντελική πρόγνωση</b><br>
+<b>📊 Πρόγνωση</b><br>
 
-Η σελίδα χρησιμοποιεί ensemble mean δεδομένα από διαθέσιμα
-καιρικά μοντέλα. Η μέση τιμή μειώνει την εξάρτηση από ένα μόνο
-μοντέλο, αλλά η αβεβαιότητα αυξάνεται όσο προχωράμε προς την
-15η ημέρα.
+Οι θερμοκρασίες και ο υετός βασίζονται σε
+ensemble δεδομένα από ECMWF IFS και AIFS.
+Η αβεβαιότητα αυξάνεται όσο προχωράμε
+προς την 15η ημέρα.
 
 </div>
 
 
-<!-- ΧΑΡΤΗΣ -->
+<!-- ΑΠΛΟΣ ΧΑΡΤΗΣ -->
 
 <h2 class="title">
-🗺️ Καιρικός χάρτης Ελλάδας
+🗺️ Τοποθεσία
 </h2>
-
-<div class="mapControls">
-
-<button id="tempBtn"
-onclick="changeMap('temp')">
-🌡️ 850 hPa
-</button>
-
-<button id="rainBtn"
-onclick="changeMap('rain')">
-🌧️ Βροχή / Χιόνι
-</button>
-
-<button id="windBtn"
-onclick="changeMap('wind')">
-💨 Άνεμος
-</button>
-
-<select id="mapDay"
-onchange="loadMap()">
-
-<option value="0">Σήμερα</option>
-<option value="1">Αύριο</option>
-<option value="2">+2 ημέρες</option>
-<option value="3">+3 ημέρες</option>
-<option value="4">+4 ημέρες</option>
-<option value="5">+5 ημέρες</option>
-<option value="6">+6 ημέρες</option>
-<option value="7">+7 ημέρες</option>
-<option value="8">+8 ημέρες</option>
-<option value="9">+9 ημέρες</option>
-<option value="10">+10 ημέρες</option>
-<option value="11">+11 ημέρες</option>
-<option value="12">+12 ημέρες</option>
-<option value="13">+13 ημέρες</option>
-<option value="14">+14 ημέρες</option>
-
-</select>
-
-</div>
-
 
 <div id="weatherMap"></div>
 
-
-<div id="mapDescription" class="info">
-Φόρτωση χάρτη...
-</div>
 
 </div>
 
 
 <footer>
+
 Greece Weather © 2026
+
 </footer>
 
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
 
 <script>
 
-/* =========================
+/* =====================================================
    ΒΑΣΙΚΕΣ ΜΕΤΑΒΛΗΤΕΣ
-========================= */
+===================================================== */
 
 let cityName="Θεσσαλονίκη";
 
@@ -543,35 +468,28 @@ let latitude=40.6401;
 
 let longitude=22.9444;
 
-let mapType="temp";
 
-let map;
-
-
-/* =========================
+/* =====================================================
    ΧΑΡΤΗΣ
-========================= */
+===================================================== */
 
-map=L.map("weatherMap").setView(
-[38.7,23.7],
-6
+const map=L.map("weatherMap")
+.setView(
+[latitude,longitude],
+7
 );
 
-
-/* Κανονικός χάρτης Ελλάδας */
 
 L.tileLayer(
 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 {
-maxZoom:12,
+maxZoom:18,
 attribution:"© OpenStreetMap"
 }
 ).addTo(map);
 
 
-/* =========================
-   ΣΗΜΕΙΟ ΠΟΛΗΣ
-========================= */
+/* ΣΗΜΕΙΟ */
 
 let cityMarker=L.marker(
 [latitude,longitude]
@@ -581,449 +499,9 @@ let cityMarker=L.marker(
 .openPopup();
 
 
-/* =========================
-   GRID WEATHER CELLS
-========================= */
-
-let weatherCells=[];
-
-
-/* Πλέγμα Ελλάδας */
-
-const grid=[];
-
-for(
-let lat=34.5;
-lat<=42.2;
-lat+=0.35
-){
-
-for(
-let lon=19.0;
-lon<=29.8;
-lon+=0.45
-){
-
-grid.push([
-lat,
-lon
-]);
-
-}
-
-}
-
-
-/* =========================
-   ΕΠΙΛΟΓΗ ΤΥΠΟΥ ΧΑΡΤΗ
-========================= */
-
-function changeMap(type){
-
-mapType=type;
-
-document
-.getElementById("tempBtn")
-.classList.remove("active");
-
-document
-.getElementById("rainBtn")
-.classList.remove("active");
-
-document
-.getElementById("windBtn")
-.classList.remove("active");
-
-if(type==="temp")
-document.getElementById("tempBtn")
-.classList.add("active");
-
-if(type==="rain")
-document.getElementById("rainBtn")
-.classList.add("active");
-
-if(type==="wind")
-document.getElementById("windBtn")
-.classList.add("active");
-
-loadMap();
-
-}
-
-
-/* =========================
-   ΧΡΩΜΑ ΘΕΡΜΟΚΡΑΣΙΑΣ
-========================= */
-
-function temperatureColor(t){
-
-if(t<=-5)return "#313695";
-
-if(t<=0)return "#4575b4";
-
-if(t<=5)return "#74add1";
-
-if(t<=10)return "#abd9e9";
-
-if(t<=15)return "#ffffbf";
-
-if(t<=20)return "#fee090";
-
-if(t<=25)return "#fdae61";
-
-if(t<=30)return "#f46d43";
-
-return "#d73027";
-
-}
-
-
-/* =========================
-   ΧΡΩΜΑ ΒΡΟΧΗΣ
-========================= */
-
-function rainColor(r){
-
-if(r<=0.1)
-return "transparent";
-
-if(r<1)
-return "#4da6ff";
-
-if(r<5)
-return "#2878ff";
-
-if(r<10)
-return "#4050d8";
-
-if(r<20)
-return "#713ac7";
-
-if(r<40)
-return "#9b20b5";
-
-return "#c0009b";
-
-}
-
-
-/* =========================
-   ΧΡΩΜΑ ΑΝΕΜΟΥ
-========================= */
-
-function windColor(w){
-
-if(w<10)
-return "#b8f3ff";
-
-if(w<20)
-return "#69d9ff";
-
-if(w<30)
-return "#27a9ff";
-
-if(w<40)
-return "#3268e8";
-
-if(w<60)
-return "#7048d8";
-
-return "#a52ad1";
-
-}
-
-
-/* =========================
-   ΦΟΡΤΩΣΗ MAP DATA
-========================= */
-
-async function loadMap(){
-
-/* καθαρίζουμε παλιά cells */
-
-weatherCells.forEach(
-cell=>map.removeLayer(cell)
-);
-
-weatherCells=[];
-
-
-const day=
-Number(
-document.getElementById("mapDay").value
-);
-
-
-/*
-Πραγματικό grid forecast.
-Για 850 hPa παίρνουμε θερμοκρασία περίπου
-στα 1500 m.
-*/
-
-const lats=grid.map(x=>x[0]).join(",");
-
-const lons=grid.map(x=>x[1]).join(",");
-
-
-let hourlyVariables="";
-
-if(mapType==="temp"){
-
-hourlyVariables=
-"temperature_850hPa";
-
-}
-
-if(mapType==="rain"){
-
-hourlyVariables=
-"precipitation";
-
-}
-
-if(mapType==="wind"){
-
-hourlyVariables=
-"wind_speed_10m";
-
-}
-
-
-const url=
-"https://api.open-meteo.com/v1/forecast"+
-"?latitude="+lats+
-"&longitude="+lons+
-"&hourly="+hourlyVariables+
-"&forecast_days=15"+
-"&timezone=Europe%2FAthens";
-
-
-try{
-
-const response=
-await fetch(url);
-
-const data=
-await response.json();
-
-
-/*
-Για πολλά coordinates το API επιστρέφει
-array από responses.
-*/
-
-const locations=
-Array.isArray(data)
-?data
-:[data];
-
-
-locations.forEach(
-(location,index)=>{
-
-if(!location.hourly)
-return;
-
-const lat=grid[index][0];
-
-const lon=grid[index][1];
-
-const times=
-location.hourly.time;
-
-
-/*
-12:00 τοπική ώρα.
-Έτσι ο ημερήσιος χάρτης είναι
-πιο εύκολος στην ανάγνωση.
-*/
-
-let hourIndex=
-day*24+12;
-
-if(hourIndex>=times.length)
-hourIndex=times.length-1;
-
-
-let value;
-
-
-if(mapType==="temp")
-value=
-location.hourly.temperature_850hPa[
-hourIndex
-];
-
-if(mapType==="rain")
-value=
-location.hourly.precipitation[
-hourIndex
-];
-
-if(mapType==="wind")
-value=
-location.hourly.wind_speed_10m[
-hourIndex
-];
-
-
-if(value===undefined || value===null)
-return;
-
-
-/*
-Κάθε grid cell είναι μικρό
-ορθογώνιο πάνω στον πραγματικό χάρτη.
-*/
-
-const sizeLat=.34;
-
-const sizeLon=.44;
-
-
-let color;
-
-let opacity=.52;
-
-
-if(mapType==="temp")
-color=temperatureColor(value);
-
-if(mapType==="rain")
-color=rainColor(value);
-
-if(mapType==="wind")
-color=windColor(value);
-
-
-if(mapType==="rain" && value<=0.1)
-return;
-
-
-const rectangle=
-L.rectangle(
-[
-[
-lat-sizeLat/2,
-lon-sizeLon/2
-],
-[
-lat+sizeLat/2,
-lon+sizeLon/2
-]
-],
-{
-stroke:false,
-fillColor:color,
-fillOpacity:opacity,
-interactive:true
-}
-).addTo(map);
-
-
-let unit="";
-
-if(mapType==="temp")
-unit="°C";
-
-if(mapType==="rain")
-unit=" mm";
-
-if(mapType==="wind")
-unit=" km/h";
-
-
-rectangle.bindTooltip(
-"<b>"+
-value.toFixed(1)+
-unit+
-"</b>",
-{
-sticky:true
-}
-);
-
-
-weatherCells.push(rectangle);
-
-}
-);
-
-
-updateMapDescription();
-
-
-}
-catch(error){
-
-console.error(error);
-
-document.getElementById(
-"mapDescription"
-).innerHTML=
-"❌ Δεν ήταν δυνατή η φόρτωση του χάρτη.";
-
-}
-
-}
-
-
-/* =========================
-   ΠΕΡΙΓΡΑΦΗ MAP
-========================= */
-
-function updateMapDescription(){
-
-const day=
-document.getElementById("mapDay")
-.options[
-document.getElementById("mapDay").selectedIndex
-].text;
-
-
-if(mapType==="temp"){
-
-document.getElementById(
-"mapDescription"
-).innerHTML=
-
-"🌡️ <b>Θερμοκρασία 850 hPa</b><br>"+
-day+
-"<br>Τα χρώματα δείχνουν τη θερμοκρασία "+
-"της ατμοσφαιρικής στάθμης των 850 hPa (~1500 m).";
-
-}
-
-if(mapType==="rain"){
-
-document.getElementById(
-"mapDescription"
-).innerHTML=
-
-"🌧️ <b>Βροχή / Χιόνι</b><br>"+
-day+
-"<br>Μπλε = υετός. Όσο πιο μωβ, τόσο μεγαλύτερη η προβλεπόμενη ποσότητα.";
-
-}
-
-if(mapType==="wind"){
-
-document.getElementById(
-"mapDescription"
-).innerHTML=
-
-"💨 <b>Άνεμος</b><br>"+
-day+
-"<br>Τα χρώματα δείχνουν την ταχύτητα του ανέμου στα 10 m.";
-
-}
-
-}
-
-
-/* =========================
-   ΠΟΛΗ
-========================= */
+/* =====================================================
+   ΑΛΛΑΓΗ ΠΟΛΗΣ
+===================================================== */
 
 function loadCity(
 name,
@@ -1043,15 +521,19 @@ document.getElementById(
 ).textContent=name;
 
 
+/* Αλλάζει το σημείο στον χάρτη */
+
 cityMarker
 .setLatLng([lat,lon])
 .bindPopup(name)
 .openPopup();
 
 
+/* Μετακινεί τον χάρτη στην περιοχή */
+
 map.setView(
 [lat,lon],
-7
+10
 );
 
 
@@ -1060,16 +542,16 @@ loadWeather();
 }
 
 
-/* =========================
-   ΠΡΟΓΝΩΣΗ ΠΟΛΗΣ
-========================= */
+/* =====================================================
+   ΠΡΟΓΝΩΣΗ
+===================================================== */
 
 async function loadWeather(){
 
 document.getElementById(
 "forecast"
 ).innerHTML=
-"⏳ Φόρτωση πραγματικής πρόγνωσης...";
+"⏳ Φόρτωση πρόγνωσης...";
 
 
 try{
@@ -1087,6 +569,7 @@ const url=
 const response=
 await fetch(url);
 
+
 const data=
 await response.json();
 
@@ -1094,49 +577,65 @@ await response.json();
 const d=data.daily;
 
 
-/*
-Εντοπίζουμε αυτόματα τα model arrays.
-*/
-
 const maxKeys=
 Object.keys(d)
 .filter(
-key=>key.includes("temperature_2m_max")
+key=>key.includes(
+"temperature_2m_max"
+)
 );
+
 
 const minKeys=
 Object.keys(d)
 .filter(
-key=>key.includes("temperature_2m_min")
+key=>key.includes(
+"temperature_2m_min"
+)
 );
+
 
 const rainKeys=
 Object.keys(d)
 .filter(
-key=>key.includes("precipitation_sum")
+key=>key.includes(
+"precipitation_sum"
+)
 );
 
 
 const max=
 averageArrays(
-maxKeys.map(key=>d[key])
+maxKeys.map(
+key=>d[key]
+)
 );
+
 
 const min=
 averageArrays(
-minKeys.map(key=>d[key])
+minKeys.map(
+key=>d[key]
+)
 );
+
 
 const rain=
 averageArrays(
-rainKeys.map(key=>d[key])
+rainKeys.map(
+key=>d[key]
+)
 );
 
 
 let html="";
 
 
-for(let i=0;i<15;i++){
+for(
+let i=0;
+i<15;
+i++
+){
 
 const date=
 new Date(d.time[i]);
@@ -1153,10 +652,11 @@ weekday:"short"
 
 let icon="☀️";
 
-if(rain[i]>2)
+
+if(rain[i]>5)
 icon="🌧️";
 
-else if(rain[i]>.2)
+else if(rain[i]>0.2)
 icon="🌦️";
 
 
@@ -1165,7 +665,8 @@ html+=`
 <div class="day">
 
 <b>
-${weekday} ${date.getDate()}/${date.getMonth()+1}
+${weekday}
+${date.getDate()}/${date.getMonth()+1}
 </b>
 
 <div class="icon">
@@ -1207,31 +708,39 @@ console.error(error);
 document.getElementById(
 "forecast"
 ).innerHTML=
-"❌ Πρόβλημα φόρτωσης δεδομένων.";
+"❌ Πρόβλημα φόρτωσης πρόγνωσης.";
 
 }
 
 }
 
 
-/* =========================
-   ΜΕΣΟΣ ΟΡΟΣ MODELS
-========================= */
+/* =====================================================
+   ΜΕΣΟΣ ΟΡΟΣ
+===================================================== */
 
 function averageArrays(arrays){
 
 if(!arrays.length)
 return [];
 
+
 const length=
 Math.max(
-...arrays.map(a=>a.length)
+...arrays.map(
+a=>a.length
+)
 );
+
 
 const result=[];
 
 
-for(let i=0;i<length;i++){
+for(
+let i=0;
+i<length;
+i++
+){
 
 const values=[];
 
@@ -1241,7 +750,8 @@ arr=>{
 
 if(
 arr[i]!==null &&
-arr[i]!==undefined
+arr[i]!==undefined &&
+!isNaN(arr[i])
 ){
 
 values.push(
@@ -1272,9 +782,9 @@ return result;
 }
 
 
-/* =========================
-   ΤΡΕΧΟΥΣΑ ΣΥΝΘΗΚΗ
-========================= */
+/* =====================================================
+   ΤΡΕΧΩΝ ΚΑΙΡΟΣ
+===================================================== */
 
 async function loadCurrent(){
 
@@ -1291,6 +801,7 @@ const url=
 const response=
 await fetch(url);
 
+
 const data=
 await response.json();
 
@@ -1301,13 +812,17 @@ const c=data.current;
 document.getElementById(
 "currentTemp"
 ).textContent=
-Math.round(c.temperature_2m)+"°C";
+Math.round(
+c.temperature_2m
+)+"°C";
 
 
 document.getElementById(
 "feels"
 ).textContent=
-Math.round(c.apparent_temperature)+"°C";
+Math.round(
+c.apparent_temperature
+)+"°C";
 
 
 document.getElementById(
@@ -1319,7 +834,9 @@ c.relative_humidity_2m+"%";
 document.getElementById(
 "wind"
 ).textContent=
-Math.round(c.wind_speed_10m)+" km/h";
+Math.round(
+c.wind_speed_10m
+)+" km/h";
 
 
 document.getElementById(
@@ -1331,17 +848,22 @@ c.precipitation+" mm";
 document.getElementById(
 "condition"
 ).textContent=
-"Πραγματικά δεδομένα για "+cityName;
+"Πραγματικά δεδομένα για "+
+cityName;
 
 }
-catch(e){}
+catch(error){
+
+console.error(error);
+
+}
 
 }
 
 
-/* =========================
-   ΑΝΑΖΗΤΗΣΗ
-========================= */
+/* =====================================================
+   ΑΝΑΖΗΤΗΣΗ ΠΕΡΙΟΧΗΣ
+===================================================== */
 
 async function searchPlace(){
 
@@ -1369,6 +891,7 @@ encodeURIComponent(text)+
 const response=
 await fetch(url);
 
+
 const data=
 await response.json();
 
@@ -1378,7 +901,9 @@ if(
 !data.results.length
 ){
 
-alert("Δεν βρέθηκε η περιοχή.");
+alert(
+"Δεν βρέθηκε η περιοχή."
+);
 
 return;
 
@@ -1394,9 +919,8 @@ p.latitude,
 p.longitude
 );
 
-
 }
-catch(e){
+catch(error){
 
 alert(
 "Δεν ήταν δυνατή η αναζήτηση."
@@ -1407,13 +931,15 @@ alert(
 }
 
 
-/* Enter για αναζήτηση */
+/* =====================================================
+   ENTER ΓΙΑ ΑΝΑΖΗΤΗΣΗ
+===================================================== */
 
 document.getElementById(
 "searchInput"
 ).addEventListener(
 "keydown",
-e=>{
+function(e){
 
 if(e.key==="Enter")
 searchPlace();
@@ -1422,18 +948,11 @@ searchPlace();
 );
 
 
-/* =========================
+/* =====================================================
    ΕΚΚΙΝΗΣΗ
-========================= */
-
-document.getElementById(
-"tempBtn"
-).classList.add("active");
-
+===================================================== */
 
 loadWeather();
-
-loadMap();
 
 </script>
 
