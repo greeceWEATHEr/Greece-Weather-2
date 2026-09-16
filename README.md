@@ -2,7 +2,7 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>The Greece Weather</title>
 
@@ -17,10 +17,11 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 }
 
 body{
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#07111f,#102b4d,#163e68);
-  color:white;
+  font-family:Arial,sans-serif;
   min-height:100vh;
+  color:white;
+  background:
+    radial-gradient(circle at top,#214d78 0%,#102b4b 35%,#06111f 100%);
 }
 
 .container{
@@ -32,7 +33,7 @@ body{
 
 header{
   text-align:center;
-  margin-bottom:25px;
+  margin-bottom:22px;
 }
 
 header h1{
@@ -41,30 +42,30 @@ header h1{
 }
 
 header p{
-  color:#bcd0e8;
+  color:#c5d8eb;
 }
 
 .search{
   display:flex;
   gap:10px;
-  max-width:750px;
+  max-width:760px;
   margin:20px auto;
 }
 
 .search input{
   flex:1;
-  padding:15px;
-  border:0;
-  border-radius:14px;
-  font-size:16px;
+  padding:15px 17px;
+  border:none;
   outline:none;
+  border-radius:15px;
+  font-size:16px;
 }
 
 .search button{
-  border:0;
-  border-radius:14px;
-  padding:0 22px;
-  background:#2d8cff;
+  border:none;
+  border-radius:15px;
+  padding:0 23px;
+  background:#2389ff;
   color:white;
   font-size:16px;
   cursor:pointer;
@@ -72,29 +73,29 @@ header p{
 
 .city-buttons{
   display:flex;
-  flex-wrap:wrap;
   justify-content:center;
+  flex-wrap:wrap;
   gap:9px;
-  margin-bottom:25px;
+  margin-bottom:22px;
 }
 
 .city-buttons button{
-  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.09);
   color:white;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:12px;
   padding:10px 14px;
+  border-radius:12px;
   cursor:pointer;
 }
 
 .card{
-  background:rgba(255,255,255,.09);
+  background:rgba(255,255,255,.085);
   border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(12px);
   border-radius:22px;
   padding:22px;
   margin-bottom:20px;
-  box-shadow:0 12px 35px rgba(0,0,0,.18);
+  backdrop-filter:blur(14px);
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
 }
 
 .current{
@@ -115,7 +116,7 @@ header p{
 }
 
 .current-icon{
-  font-size:64px;
+  font-size:65px;
 }
 
 .current-temp{
@@ -125,12 +126,13 @@ header p{
 
 .condition{
   font-size:19px;
-  color:#d5e5f5;
-  margin-top:5px;
+  color:#d3e3f3;
+  margin-top:4px;
 }
 
 .section-title{
   font-size:24px;
+  font-weight:bold;
   margin-bottom:15px;
 }
 
@@ -143,19 +145,19 @@ header p{
 .day{
   background:rgba(0,0,0,.18);
   border-radius:17px;
-  padding:16px 10px;
+  padding:15px 10px;
   text-align:center;
   min-height:190px;
 }
 
 .day-name{
   font-weight:bold;
-  margin-bottom:9px;
+  line-height:1.3;
 }
 
 .day-icon{
-  font-size:42px;
-  margin:8px 0;
+  font-size:43px;
+  margin:9px 0;
 }
 
 .high{
@@ -165,36 +167,36 @@ header p{
 
 .low{
   font-size:16px;
-  color:#bcd0e8;
+  color:#bcd0e4;
   margin-top:4px;
 }
 
-.rain{
+.precip{
+  color:#9ecbff;
   font-size:13px;
-  color:#9fcaff;
   margin-top:9px;
-}
-
-#map{
-  height:380px;
-  width:100%;
-  border-radius:18px;
-  overflow:hidden;
 }
 
 .status{
   text-align:center;
-  color:#bcd0e8;
-  margin:10px 0;
+  color:#bfd2e5;
+  margin:10px;
 }
 
 .error{
-  color:#ff9f9f;
   text-align:center;
-  margin:15px;
+  color:#ff9d9d;
+}
+
+#map{
+  width:100%;
+  height:380px;
+  border-radius:18px;
+  overflow:hidden;
 }
 
 @media(max-width:600px){
+
   header h1{
     font-size:29px;
   }
@@ -208,7 +210,7 @@ header p{
   }
 
   .current-temp{
-    font-size:45px;
+    font-size:46px;
   }
 
   .forecast{
@@ -224,12 +226,13 @@ header p{
 
 <header>
   <h1>🌦️ The Greece Weather</h1>
-  <p>Πρόγνωση καιρού με δεδομένα ECMWF</p>
+  <p>Πρόγνωση καιρού με μοντέλα ECMWF</p>
 </header>
 
 <div class="search">
-  <input id="searchInput"
-         placeholder="Αναζήτησε πόλη ή περιοχή σε όλο τον κόσμο">
+  <input
+    id="searchInput"
+    placeholder="Αναζήτησε πόλη ή περιοχή σε όλο τον κόσμο">
   <button onclick="searchLocation()">Αναζήτηση</button>
 </div>
 
@@ -237,9 +240,9 @@ header p{
   <button onclick="selectCity('Αθήνα',37.9838,23.7275)">Αθήνα</button>
   <button onclick="selectCity('Θεσσαλονίκη',40.6401,22.9444)">Θεσσαλονίκη</button>
   <button onclick="selectCity('Πάτρα',38.2466,21.7346)">Πάτρα</button>
-  <button onclick="selectCity('Λάρισα',39.6390,22.4191)">Λάρισα</button>
+  <button onclick="selectCity('Λάρισα',39.639,22.419)">Λάρισα</button>
   <button onclick="selectCity('Ηράκλειο',35.3387,25.1442)">Ηράκλειο</button>
-  <button onclick="selectCity('Ιωάννινα',39.6650,20.8537)">Ιωάννινα</button>
+  <button onclick="selectCity('Ιωάννινα',39.665,20.8537)">Ιωάννινα</button>
   <button onclick="selectCity('Καβάλα',40.9396,24.4018)">Καβάλα</button>
   <button onclick="selectCity('Ρόδος',36.4349,28.2176)">Ρόδος</button>
 </div>
@@ -248,15 +251,24 @@ header p{
 
 <div class="card current">
 
-  <div id="locationName" class="location">Θεσσαλονίκη</div>
+  <div id="locationName" class="location">
+    Θεσσαλονίκη
+  </div>
 
   <div class="current-weather">
 
-    <div id="currentIcon" class="current-icon">🌤️</div>
+    <div id="currentIcon" class="current-icon">
+      🌤️
+    </div>
 
     <div>
-      <div id="currentTemp" class="current-temp">--°</div>
-      <div id="currentCondition" class="condition">Φόρτωση...</div>
+      <div id="currentTemp" class="current-temp">
+        --°
+      </div>
+
+      <div id="currentCondition" class="condition">
+        Φόρτωση...
+      </div>
     </div>
 
   </div>
@@ -265,7 +277,9 @@ header p{
 
 <div class="card">
 
-  <div class="section-title">📅 Πρόγνωση 15 ημερών</div>
+  <div class="section-title">
+    📅 Πρόγνωση 15 ημερών
+  </div>
 
   <div id="forecast" class="forecast"></div>
 
@@ -273,7 +287,9 @@ header p{
 
 <div class="card">
 
-  <div class="section-title">📍 Τοποθεσία</div>
+  <div class="section-title">
+    📍 Τοποθεσία
+  </div>
 
   <div id="map"></div>
 
@@ -285,6 +301,10 @@ header p{
 
 <script>
 
+/* =========================================
+   ΤΡΕΧΟΥΣΑ ΤΟΠΟΘΕΣΙΑ
+========================================= */
+
 let currentLat = 40.6401;
 let currentLon = 22.9444;
 
@@ -292,13 +312,13 @@ let map;
 let marker;
 
 
-/* -----------------------------
-   WMO WEATHER CODES
------------------------------ */
+/* =========================================
+   WEATHER CODES
+========================================= */
 
 function weatherInfo(code){
 
-  const data = {
+  const w = {
 
     0:["☀️","Αίθριος"],
     1:["🌤️","Κυρίως αίθριος"],
@@ -312,14 +332,14 @@ function weatherInfo(code){
     53:["🌦️","Ψιχάλα"],
     55:["🌧️","Ισχυρή ψιχάλα"],
 
-    56:["🌧️","Ασθενής παγωμένη ψιχάλα"],
-    57:["🌧️","Ισχυρή παγωμένη ψιχάλα"],
+    56:["🌧️❄️","Παγωμένη ψιχάλα"],
+    57:["🌧️❄️","Ισχυρή παγωμένη ψιχάλα"],
 
     61:["🌧️","Ασθενής βροχή"],
     63:["🌧️","Βροχή"],
     65:["🌧️","Ισχυρή βροχή"],
 
-    66:["🌧️❄️","Ασθενής παγωμένη βροχή"],
+    66:["🌧️❄️","Παγωμένη βροχή"],
     67:["🌧️❄️","Ισχυρή παγωμένη βροχή"],
 
     71:["🌨️","Ασθενής χιονόπτωση"],
@@ -339,22 +359,21 @@ function weatherInfo(code){
     99:["⛈️","Ισχυρή καταιγίδα με χαλάζι"]
   };
 
-  return data[code] || ["🌡️","Μεταβλητός καιρός"];
+  return w[code] || ["🌡️","Μεταβλητός καιρός"];
 }
 
 
-/* -----------------------------
-   MODEL FORECAST
-   IFS 0.25° + AIFS 0.25°
------------------------------ */
+/* =========================================
+   ΛΗΨΗ ECMWF IFS HRES
+========================================= */
 
-async function getModelForecast(model){
+async function getIFS(){
 
   const url =
     "https://api.open-meteo.com/v1/forecast" +
     "?latitude=" + currentLat +
     "&longitude=" + currentLon +
-    "&models=" + model +
+    "&models=ecmwf_ifs025" +
     "&daily=" +
     "temperature_2m_max," +
     "temperature_2m_min," +
@@ -362,25 +381,202 @@ async function getModelForecast(model){
     "rain_sum," +
     "snowfall_sum," +
     "weather_code" +
-    "&current=temperature_2m,weather_code" +
+    "&current=" +
+    "temperature_2m,weather_code" +
     "&forecast_days=15" +
     "&timezone=auto" +
     "&temperature_unit=celsius" +
     "&precipitation_unit=mm";
 
-  const response = await fetch(url,{cache:"no-store"});
+  const r = await fetch(url,{cache:"no-store"});
 
-  if(!response.ok){
-    throw new Error("API error");
-  }
+  if(!r.ok) throw new Error("IFS error");
 
-  return await response.json();
+  return await r.json();
 }
 
 
-/* -----------------------------
-   AVERAGE OF IFS + AIFS
------------------------------ */
+/* =========================================
+   ΛΗΨΗ ECMWF AIFS
+========================================= */
+
+async function getAIFS(){
+
+  const url =
+    "https://api.open-meteo.com/v1/forecast" +
+    "?latitude=" + currentLat +
+    "&longitude=" + currentLon +
+    "&models=ecmwf_aifs025" +
+    "&daily=" +
+    "temperature_2m_max," +
+    "temperature_2m_min," +
+    "precipitation_sum," +
+    "rain_sum," +
+    "snowfall_sum," +
+    "weather_code" +
+    "&current=" +
+    "temperature_2m,weather_code" +
+    "&forecast_days=15" +
+    "&timezone=auto" +
+    "&temperature_unit=celsius" +
+    "&precipitation_unit=mm";
+
+  const r = await fetch(url,{cache:"no-store"});
+
+  if(!r.ok) throw new Error("AIFS error");
+
+  return await r.json();
+}
+
+
+/* =========================================
+   ΜΕΣΟΣ ΟΡΟΣ
+========================================= */
+
+function avg(a,b){
+
+  if(a == null && b == null) return 0;
+  if(a == null) return b;
+  if(b == null) return a;
+
+  return (a+b)/2;
+}
+
+
+/* =========================================
+   ΚΑΤΑΣΤΑΣΗ ΚΑΙΡΟΥ
+========================================= */
+
+function chooseWeatherCode(
+  codeIFS,
+  codeAIFS,
+  snowIFS,
+  snowAIFS,
+  rainIFS,
+  rainAIFS
+){
+
+  /*
+    Δεν κάνουμε ΠΟΤΕ:
+    Math.max(codeIFS,codeAIFS)
+
+    Οι WMO κωδικοί είναι κατηγορίες.
+  */
+
+  const snow =
+    avg(snowIFS,snowAIFS);
+
+  const rain =
+    avg(rainIFS,rainAIFS);
+
+
+  const snowCodes =
+    [71,73,75,77,85,86];
+
+  const stormCodes =
+    [95,96,99];
+
+  const rainCodes =
+    [51,53,55,61,63,65,66,67,80,81,82];
+
+  const fogCodes =
+    [45,48];
+
+
+  /*
+    Αν υπάρχει πραγματικό snowfall
+    από τα μοντέλα, προτεραιότητα στο χιόνι.
+  */
+
+  if(snow > 0){
+
+    if(snowIFS > 0 && snowAIFS > 0){
+
+      return snowCodes.includes(codeIFS)
+        ? codeIFS
+        : codeAIFS;
+    }
+
+    if(snowIFS > 0){
+
+      return snowCodes.includes(codeIFS)
+        ? codeIFS
+        : 71;
+    }
+
+    if(snowAIFS > 0){
+
+      return snowCodes.includes(codeAIFS)
+        ? codeAIFS
+        : 71;
+    }
+  }
+
+
+  /*
+    Καταιγίδα:
+    αν και τα δύο μοντέλα τη δείχνουν,
+    κρατάμε την πραγματική κατηγορία.
+  */
+
+  if(
+    stormCodes.includes(codeIFS) &&
+    stormCodes.includes(codeAIFS)
+  ){
+
+    return codeIFS;
+  }
+
+
+  /*
+    Αν συμφωνούν τα δύο μοντέλα,
+    χρησιμοποιούμε αυτόν τον κωδικό.
+  */
+
+  if(codeIFS === codeAIFS){
+
+    return codeIFS;
+  }
+
+
+  /*
+    Αν διαφωνούν αλλά υπάρχει βροχή,
+    δεν επιλέγουμε αυθαίρετα με βάση
+    το μεγαλύτερο νούμερο.
+  */
+
+  if(rain > 0){
+
+    if(rainCodes.includes(codeIFS))
+      return codeIFS;
+
+    if(rainCodes.includes(codeAIFS))
+      return codeAIFS;
+  }
+
+
+  /*
+    Ομίχλη
+  */
+
+  if(fogCodes.includes(codeIFS))
+    return codeIFS;
+
+  if(fogCodes.includes(codeAIFS))
+    return codeAIFS;
+
+
+  /*
+    Τελική επιλογή IFS.
+  */
+
+  return codeIFS;
+}
+
+
+/* =========================================
+   ΦΟΡΤΩΣΗ
+========================================= */
 
 async function loadWeather(){
 
@@ -389,12 +585,11 @@ async function loadWeather(){
 
   try{
 
-    const [ifs,aifs] = await Promise.all([
-
-      getModelForecast("ecmwf_ifs025"),
-      getModelForecast("ecmwf_aifs025")
-
-    ]);
+    const [ifs,aifs] =
+      await Promise.all([
+        getIFS(),
+        getAIFS()
+      ]);
 
     renderCurrent(ifs,aifs);
     renderForecast(ifs,aifs);
@@ -406,195 +601,130 @@ async function loadWeather(){
     console.error(error);
 
     document.getElementById("status").textContent =
-      "Δεν ήταν δυνατή η φόρτωση των δεδομένων.";
+      "Σφάλμα φόρτωσης δεδομένων. Δοκιμάζεται ξανά...";
 
+    setTimeout(loadWeather,5000);
   }
-
 }
 
 
-/* -----------------------------
-   CURRENT WEATHER
------------------------------ */
+/* =========================================
+   ΤΡΕΧΩΝ ΚΑΙΡΟΣ
+========================================= */
 
 function renderCurrent(ifs,aifs){
 
-  const tempIFS = ifs.current.temperature_2m;
-  const tempAIFS = aifs.current.temperature_2m;
+  const temp =
+    avg(
+      ifs.current.temperature_2m,
+      aifs.current.temperature_2m
+    );
 
-  const averageTemp =
-    (tempIFS + tempAIFS) / 2;
 
-  const codeIFS = ifs.current.weather_code;
-  const codeAIFS = aifs.current.weather_code;
+  const code =
+    chooseWeatherCode(
+      ifs.current.weather_code,
+      aifs.current.weather_code,
+      0,
+      0,
+      0,
+      0
+    );
 
-  /*
-    Για την τρέχουσα κατάσταση:
-    αν ένα από τα δύο μοντέλα δείχνει χιόνι
-    και υπάρχει πραγματική χιονόπτωση,
-    δεν το μετατρέπουμε σε βροχή.
-  */
 
-  const snowCodes =
-    [71,73,75,77,85,86];
+  const info =
+    weatherInfo(code);
 
-  let finalCode;
 
-  if(
-    snowCodes.includes(codeIFS) &&
-    snowCodes.includes(codeAIFS)
-  ){
+  document.getElementById("currentTemp")
+    .textContent =
+    Math.round(temp) + "°";
 
-    finalCode = codeIFS;
 
-  }else if(snowCodes.includes(codeIFS)){
-
-    finalCode = codeIFS;
-
-  }else if(snowCodes.includes(codeAIFS)){
-
-    finalCode = codeAIFS;
-
-  }else{
-
-    /*
-      Όταν δεν υπάρχει χιόνι,
-      παίρνουμε τον κωδικό του IFS,
-      χωρίς Math.max σε WMO codes.
-    */
-
-    finalCode = codeIFS;
-
-  }
-
-  const info = weatherInfo(finalCode);
-
-  document.getElementById("currentTemp").textContent =
-    Math.round(averageTemp) + "°";
-
-  document.getElementById("currentIcon").textContent =
+  document.getElementById("currentIcon")
+    .textContent =
     info[0];
 
-  document.getElementById("currentCondition").textContent =
+
+  document.getElementById("currentCondition")
+    .textContent =
     info[1];
 }
 
 
-/* -----------------------------
-   15 DAY FORECAST
------------------------------ */
+/* =========================================
+   15 ΗΜΕΡΕΣ
+========================================= */
 
 function renderForecast(ifs,aifs){
 
-  const container =
+  const box =
     document.getElementById("forecast");
 
-  container.innerHTML="";
+  box.innerHTML="";
 
-  const days = ifs.daily.time;
 
   for(let i=0;i<15;i++){
 
     /*
-      ΙΔΙΟΣ ΜΕΣΟΣ ΟΡΟΣ:
-      IFS + AIFS / 2
+      ΠΡΑΓΜΑΤΙΚΟΣ ΜΕΣΟΣ ΟΡΟΣ
     */
 
     const max =
-      (
-        ifs.daily.temperature_2m_max[i] +
+      avg(
+        ifs.daily.temperature_2m_max[i],
         aifs.daily.temperature_2m_max[i]
-      ) / 2;
+      );
 
     const min =
-      (
-        ifs.daily.temperature_2m_min[i] +
+      avg(
+        ifs.daily.temperature_2m_min[i],
         aifs.daily.temperature_2m_min[i]
-      ) / 2;
+      );
+
+    const precipitation =
+      avg(
+        ifs.daily.precipitation_sum[i],
+        aifs.daily.precipitation_sum[i]
+      );
 
     const rain =
-      (
-        ifs.daily.rain_sum[i] +
+      avg(
+        ifs.daily.rain_sum[i],
         aifs.daily.rain_sum[i]
-      ) / 2;
+      );
 
     const snow =
-      (
-        ifs.daily.snowfall_sum[i] +
+      avg(
+        ifs.daily.snowfall_sum[i],
         aifs.daily.snowfall_sum[i]
-      ) / 2;
-
-    const codeIFS =
-      ifs.daily.weather_code[i];
-
-    const codeAIFS =
-      aifs.daily.weather_code[i];
+      );
 
 
-    /*
-      ΧΙΟΝΙ:
-      Δεν χρησιμοποιούμε τη θερμοκρασία
-      για να "μαντέψουμε" χιόνι.
+    const code =
+      chooseWeatherCode(
+        ifs.daily.weather_code[i],
+        aifs.daily.weather_code[i],
 
-      Χρησιμοποιούμε το πραγματικό
-      snowfall_sum των μοντέλων.
-    */
+        ifs.daily.snowfall_sum[i],
+        aifs.daily.snowfall_sum[i],
 
-    let finalCode;
-
-    const snowCodes =
-      [71,73,75,77,85,86];
-
-    const ifsSnow =
-      snowCodes.includes(codeIFS);
-
-    const aifsSnow =
-      snowCodes.includes(codeAIFS);
-
-
-    /*
-      Αν υπάρχει πραγματικό snowfall
-      σε κάποιο από τα δύο μοντέλα,
-      το εμφανίζουμε σωστά.
-    */
-
-    if(snow > 0){
-
-      if(ifsSnow || aifsSnow){
-
-        finalCode =
-          ifsSnow ? codeIFS : codeAIFS;
-
-      }else{
-
-        /*
-          Αν υπάρχει snowfall αλλά ο ημερήσιος
-          κωδικός είναι μικτός/διαφορετικός,
-          χρησιμοποιούμε χιονόπτωση.
-        */
-
-        finalCode = 71;
-      }
-
-    }else{
-
-      /*
-        Χωρίς χιόνι δεν συγκρίνουμε αριθμητικά
-        WMO codes.
-      */
-
-      finalCode = codeIFS;
-    }
+        ifs.daily.rain_sum[i],
+        aifs.daily.rain_sum[i]
+      );
 
 
     const info =
-      weatherInfo(finalCode);
+      weatherInfo(code);
 
 
     const date =
-      new Date(days[i]);
+      new Date(
+        ifs.daily.time[i] + "T12:00:00"
+      );
 
-    const dayName =
+
+    const day =
       date.toLocaleDateString(
         "el-GR",
         {weekday:"short"}
@@ -615,10 +745,41 @@ function renderForecast(ifs,aifs){
 
     card.className="day";
 
-    card.innerHTML=`
+
+    let precipText;
+
+    if(snow > 0){
+
+      precipText =
+        "❄️ " +
+        snow.toFixed(1) +
+        " cm";
+
+    }else if(rain > 0){
+
+      precipText =
+        "🌧️ " +
+        rain.toFixed(1) +
+        " mm";
+
+    }else if(precipitation > 0){
+
+      precipText =
+        "💧 " +
+        precipitation.toFixed(1) +
+        " mm";
+
+    }else{
+
+      precipText =
+        "☔ 0 mm";
+    }
+
+
+    card.innerHTML = `
 
       <div class="day-name">
-        ${dayName}<br>
+        ${day}<br>
         <small>${dateText}</small>
       </div>
 
@@ -634,23 +795,21 @@ function renderForecast(ifs,aifs){
         ${Math.round(min)}°
       </div>
 
-      <div class="rain">
-        ${snow > 0
-          ? "❄️ " + snow.toFixed(1) + " cm"
-          : "🌧️ " + rain.toFixed(1) + " mm"
-        }
+      <div class="precip">
+        ${precipText}
       </div>
 
     `;
 
-    container.appendChild(card);
+
+    box.appendChild(card);
   }
 }
 
 
-/* -----------------------------
-   SEARCH WORLDWIDE
------------------------------ */
+/* =========================================
+   ΑΝΑΖΗΤΗΣΗ ΠΑΓΚΟΣΜΙΩΣ
+========================================= */
 
 async function searchLocation(){
 
@@ -662,8 +821,11 @@ async function searchLocation(){
 
   if(!query) return;
 
-  document.getElementById("status").textContent =
-    "Αναζήτηση...";
+
+  document.getElementById("status")
+    .textContent =
+    "Αναζήτηση περιοχής...";
+
 
   try{
 
@@ -675,79 +837,92 @@ async function searchLocation(){
       "&language=el" +
       "&format=json";
 
+
     const response =
       await fetch(url,{cache:"no-store"});
+
 
     const data =
       await response.json();
 
-    if(!data.results || !data.results.length){
 
-      document.getElementById("status").textContent =
+    if(
+      !data.results ||
+      !data.results.length
+    ){
+
+      document.getElementById("status")
+        .textContent =
         "Δεν βρέθηκε η περιοχή.";
 
       return;
     }
 
+
     const place =
       data.results[0];
 
+
     selectCity(
       place.name +
-      (place.country ? ", " + place.country : ""),
+      (
+        place.country
+          ? ", " + place.country
+          : ""
+      ),
       place.latitude,
       place.longitude
     );
+
 
   }catch(error){
 
     console.error(error);
 
-    document.getElementById("status").textContent =
+    document.getElementById("status")
+      .textContent =
       "Σφάλμα στην αναζήτηση.";
-
   }
 }
 
 
-/* -----------------------------
-   SELECT LOCATION
------------------------------ */
+/* =========================================
+   ΕΠΙΛΟΓΗ ΠΟΛΗΣ
+========================================= */
 
 function selectCity(name,lat,lon){
 
   currentLat = lat;
   currentLon = lon;
 
-  document.getElementById("locationName").textContent =
+  document.getElementById("locationName")
+    .textContent =
     name;
 
-  updateMap(
-    lat,
-    lon,
-    name
-  );
+  updateMap(lat,lon,name);
 
   loadWeather();
 }
 
 
-/* -----------------------------
+/* =========================================
    MAP
------------------------------ */
+========================================= */
 
 function initMap(){
 
   map =
     L.map("map");
 
+
   L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
       attribution:
-      '&copy; OpenStreetMap contributors'
+        "&copy; OpenStreetMap contributors"
     }
   ).addTo(map);
+
 
   updateMap(
     currentLat,
@@ -761,38 +936,40 @@ function updateMap(lat,lon,name){
 
   if(!map) return;
 
+
   map.setView(
     [lat,lon],
     10
   );
 
+
   if(marker){
+
     map.removeLayer(marker);
   }
 
+
   marker =
     L.marker([lat,lon])
-    .addTo(map)
-    .bindPopup(
-      "<b>" +
-      name +
-      "</b>"
-    )
-    .openPopup();
+      .addTo(map)
+      .bindPopup(
+        "<b>" + name + "</b>"
+      )
+      .openPopup();
 }
 
 
-/* -----------------------------
-   ENTER KEY SEARCH
------------------------------ */
+/* =========================================
+   ENTER = SEARCH
+========================================= */
 
 document
   .getElementById("searchInput")
   .addEventListener(
     "keydown",
-    function(event){
+    function(e){
 
-      if(event.key === "Enter"){
+      if(e.key === "Enter"){
         searchLocation();
       }
 
@@ -800,7 +977,9 @@ document
   );
 
 
-/* START */
+/* =========================================
+   START
+========================================= */
 
 initMap();
 
