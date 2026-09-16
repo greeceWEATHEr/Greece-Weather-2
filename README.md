@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The Greece Weather</title>
+<title>WORLD WEATHER</title>
 
 <link
   rel="stylesheet"
@@ -14,6 +14,10 @@
 <style>
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -86,10 +90,16 @@ header p {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .search-box button:hover {
   background: #3799e9;
+}
+
+.search-box button:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 .cities {
@@ -106,6 +116,7 @@ header p {
   padding: 9px 14px;
   border-radius: 999px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .city-btn:hover {
@@ -186,7 +197,6 @@ header p {
   line-height: 1.25;
 }
 
-/* ΘΕΡΜΟΚΡΑΣΙΕΣ ΠΑΝΩ-ΚΑΤΩ */
 .temps {
   margin-top: 13px;
   display: flex;
@@ -264,18 +274,23 @@ header p {
 <div class="container">
 
 <header>
-  <h1>🌍 The Greece Weather</h1>
-  <p>ECMWF IFS HRES 9 km + ECMWF AIFS</p>
+  <h1>🌍 WORLD WEATHER</h1>
+  <p>Global weather forecast</p>
 </header>
 
 <div class="search-box glass">
+
   <input
     id="searchInput"
     type="text"
     placeholder="Αναζήτησε πόλη ή περιοχή σε όλο τον κόσμο..."
     autocomplete="off"
   >
-  <button onclick="searchPlace()">Αναζήτηση</button>
+
+  <button id="searchButton" onclick="searchPlace()">
+    Αναζήτηση
+  </button>
+
 </div>
 
 <div class="cities">
@@ -336,17 +351,11 @@ header p {
 
   <div class="current-details">
 
-    <span id="humidity">
-      💧 --%
-    </span>
+    <span id="humidity">💧 --%</span>
 
-    <span id="windSpeed">
-      💨 -- km/h
-    </span>
+    <span id="windSpeed">💨 -- km/h</span>
 
-    <span id="windDirection">
-      🧭 --
-    </span>
+    <span id="windDirection">🧭 --</span>
 
   </div>
 
@@ -372,21 +381,22 @@ header p {
 
 </div>
 
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
 /* =========================================================
-   ΒΑΣΙΚΑ
+   STATE
 ========================================================= */
 
 let selectedLat = 40.6401;
 let selectedLon = 22.9444;
 let selectedName = "Θεσσαλονίκη";
 
-let map;
-let marker;
+let map = null;
+let marker = null;
+
+let requestNumber = 0;
 
 
 /* =========================================================
@@ -445,7 +455,7 @@ function getWeather(code) {
 
 
 /* =========================================================
-   ΣΩΣΤΟΣ ΧΕΙΡΙΣΜΟΣ ΒΡΟΧΗΣ / ΧΙΟΝΙΟΥ
+   WEATHER CONDITION
 ========================================================= */
 
 function chooseWeatherCode(
@@ -457,8 +467,13 @@ function chooseWeatherCode(
   snow2
 ) {
 
-  const snow = (snow1 || 0) + (snow2 || 0);
-  const rain = (rain1 || 0) + (rain2 || 0);
+  const snow =
+    (snow1 || 0) +
+    (snow2 || 0);
+
+  const rain =
+    (rain1 || 0) +
+    (rain2 || 0);
 
   if (snow > 0.05 && rain > 0.05) {
 
@@ -566,7 +581,7 @@ function chooseWeatherCode(
 
 
 /* =========================================================
-   ΜΕΣΟΣ ΟΡΟΣ
+   AVERAGE
 ========================================================= */
 
 function avg(a, b) {
@@ -586,7 +601,7 @@ function avg(a, b) {
 
 
 /* =========================================================
-   ΚΥΚΛΙΚΟΣ ΜΕΣΟΣ ΑΝΕΜΟΥ
+   WIND DIRECTION AVERAGE
 ========================================================= */
 
 function averageWindDirection(a, b) {
@@ -624,7 +639,7 @@ function averageWindDirection(a, b) {
 
 
 /* =========================================================
-   ΔΙΕΥΘΥΝΣΗ
+   WIND DIRECTION TEXT
 ========================================================= */
 
 function windDirection(degrees) {
@@ -660,13 +675,14 @@ function windDirection(degrees) {
 
 
 /* =========================================================
-   API
+   FETCH MODEL
 ========================================================= */
 
 async function getModel(
   model,
   lat,
-  lon
+  lon,
+  signal
 ) {
 
   const url =
@@ -703,10 +719,17 @@ async function getModel(
     "&precipitation_unit=mm";
 
   const response =
-    await fetch(url);
+    await fetch(
+      url,
+      {
+        signal: signal
+      }
+    );
 
   if (!response.ok) {
-    throw new Error("Weather API error");
+    throw new Error(
+      "Weather API error"
+    );
   }
 
   return await response.json();
@@ -715,43 +738,44 @@ async function getModel(
 
 
 /* =========================================================
-   MODELS
+   BOTH MODELS
 ========================================================= */
 
 async function getBothModels(
   lat,
-  lon
+  lon,
+  signal
 ) {
 
-  const [
-    ifs,
-    aifs
-  ] = await Promise.all([
+  const results =
+    await Promise.all([
 
-    getModel(
-      "ecmwf_ifs025",
-      lat,
-      lon
-    ),
+      getModel(
+        "ecmwf_ifs025",
+        lat,
+        lon,
+        signal
+      ),
 
-    getModel(
-      "ecmwf_aifs025",
-      lat,
-      lon
-    )
+      getModel(
+        "ecmwf_aifs025",
+        lat,
+        lon,
+        signal
+      )
 
-  ]);
+    ]);
 
   return {
-    ifs,
-    aifs
+    ifs: results[0],
+    aifs: results[1]
   };
 
 }
 
 
 /* =========================================================
-   CURRENT
+   CURRENT WEATHER
 ========================================================= */
 
 function renderCurrent(
@@ -812,7 +836,7 @@ function renderCurrent(
 
 
 /* =========================================================
-   15ΗΜΕΡΟ
+   FORECAST
 ========================================================= */
 
 function renderForecast(
@@ -825,7 +849,8 @@ function renderForecast(
       "forecast"
     );
 
-  container.innerHTML = "";
+  const fragment =
+    document.createDocumentFragment();
 
   const days =
     ifs.daily.time;
@@ -896,7 +921,9 @@ function renderForecast(
       );
 
     const card =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     card.className =
       "day glass";
@@ -945,9 +972,13 @@ function renderForecast(
 
     `;
 
-    container.appendChild(card);
+    fragment.appendChild(card);
 
   }
+
+  container.replaceChildren(
+    fragment
+  );
 
 }
 
@@ -958,11 +989,18 @@ function renderForecast(
 
 function initializeMap() {
 
+  const mapElement =
+    document.getElementById("map");
+
+  if (!mapElement)
+    return;
+
   map =
     L.map(
-      "map",
+      mapElement,
       {
-        zoomControl: true
+        zoomControl: true,
+        preferCanvas: true
       }
     ).setView(
       [
@@ -973,9 +1011,8 @@ function initializeMap() {
     );
 
   /*
-    Χρησιμοποιούμε HTTPS tiles.
-    Αυτό διορθώνει το πρόβλημα όταν η σελίδα
-    είναι σε HTTPS/GitHub Pages.
+    Ο χάρτης χρησιμοποιεί μόνο OpenStreetMap
+    και δεν φορτώνει weather layers.
   */
 
   L.tileLayer(
@@ -983,7 +1020,9 @@ function initializeMap() {
     {
       maxZoom: 19,
       attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+        "&copy; OpenStreetMap contributors",
+        updateWhenIdle: true,
+        keepBuffer: 2
     }
   ).addTo(map);
 
@@ -1011,7 +1050,7 @@ function updateMap() {
   if (!map)
     return;
 
-  map.invalidateSize();
+  map.invalidateSize(false);
 
   map.setView(
     [
@@ -1020,7 +1059,7 @@ function updateMap() {
     ],
     8,
     {
-      animate: true
+      animate: false
     }
   );
 
@@ -1031,10 +1070,9 @@ function updateMap() {
     ]
   );
 
-  marker
-    .setPopupContent(
-      selectedName
-    );
+  marker.setPopupContent(
+    selectedName
+  );
 
 }
 
@@ -1049,6 +1087,9 @@ async function loadLocation(
   lon
 ) {
 
+  const thisRequest =
+    ++requestNumber;
+
   selectedName = name;
   selectedLat = Number(lat);
   selectedLon = Number(lon);
@@ -1061,11 +1102,13 @@ async function loadLocation(
   document.getElementById(
     "status"
   ).textContent =
-    "Φόρτωση ECMWF IFS HRES + AIFS...";
+    "Φόρτωση πρόγνωσης...";
 
-  document.getElementById(
-    "forecast"
-  ).innerHTML = "";
+  /*
+    Δεν σβήνουμε αμέσως την παλιά πρόγνωση.
+    Έτσι η σελίδα δεν φαίνεται άδεια
+    όσο περιμένει το API.
+  */
 
   try {
 
@@ -1074,6 +1117,18 @@ async function loadLocation(
         selectedLat,
         selectedLon
       );
+
+    /*
+      Αν ο χρήστης έκανε δεύτερη αναζήτηση
+      πριν ολοκληρωθεί η πρώτη,
+      αγνοούμε το παλιό αποτέλεσμα.
+    */
+
+    if (
+      thisRequest !== requestNumber
+    ) {
+      return;
+    }
 
     renderCurrent(
       models.ifs,
@@ -1087,20 +1142,15 @@ async function loadLocation(
 
     updateMap();
 
-    /*
-      Το invalidateSize ξαναϋπολογίζει το μέγεθος
-      του Leaflet όταν έχει φορτώσει όλο το περιεχόμενο.
-    */
-
     setTimeout(
       function() {
 
         if (map) {
-          map.invalidateSize();
+          map.invalidateSize(false);
         }
 
       },
-      300
+      100
     );
 
     document.getElementById(
@@ -1109,6 +1159,12 @@ async function loadLocation(
       "Τελευταία διαθέσιμα δεδομένα ECMWF";
 
   } catch (error) {
+
+    if (
+      error.name === "AbortError"
+    ) {
+      return;
+    }
 
     console.error(error);
 
@@ -1152,11 +1208,18 @@ async function searchPlace() {
       "searchInput"
     );
 
+  const button =
+    document.getElementById(
+      "searchButton"
+    );
+
   const query =
     input.value.trim();
 
   if (!query)
     return;
+
+  button.disabled = true;
 
   document.getElementById(
     "status"
@@ -1217,13 +1280,9 @@ async function searchPlace() {
     }
 
     await loadLocation(
-
       fullName,
-
       place.latitude,
-
       place.longitude
-
     );
 
   } catch (error) {
@@ -1235,13 +1294,17 @@ async function searchPlace() {
     ).textContent =
       "Σφάλμα στην αναζήτηση.";
 
+  } finally {
+
+    button.disabled = false;
+
   }
 
 }
 
 
 /* =========================================================
-   ENTER
+   ENTER SEARCH
 ========================================================= */
 
 document
@@ -1255,6 +1318,8 @@ document
       if (
         event.key === "Enter"
       ) {
+
+        event.preventDefault();
 
         searchPlace();
 
@@ -1270,14 +1335,27 @@ document
 
 window.addEventListener(
   "load",
-  async function() {
+  function() {
 
     initializeMap();
 
-    await loadLocation(
-      "Θεσσαλονίκη",
-      40.6401,
-      22.9444
+    /*
+      Αφήνουμε πρώτα το UI και τον χάρτη
+      να εμφανιστούν και μετά ζητάμε δεδομένα.
+      Αυτό κάνει αισθητά πιο ομαλή την εκκίνηση.
+    */
+
+    setTimeout(
+      function() {
+
+        loadLocation(
+          "Θεσσαλονίκη",
+          40.6401,
+          22.9444
+        );
+
+      },
+      50
     );
 
   }
