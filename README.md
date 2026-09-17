@@ -301,6 +301,14 @@ body{
     font-size:35px;
 
     margin:18px 0 12px;
+
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
 }
 
 .max{
@@ -328,14 +336,12 @@ body{
 
 
 /* =====================================
-   ΝΥΧΤΕΡΙΝΟ ΦΕΓΓΑΡΙ
+   ΝΥΧΤΕΡΙΝΑ ΕΙΚΟΝΙΔΙΑ
 ===================================== */
 
 /*
-   Ένα μόνο emoji.
-
-   Το filter το κάνει γκριζο-μπλε
-   αντί για έντονο κίτρινο.
+   Το φεγγάρι είναι ένα μόνο emoji.
+   Το κάνουμε ψυχρό/γκρι-μπλε.
 */
 
 .night-moon{
@@ -344,11 +350,42 @@ body{
 
     filter:
         grayscale(1)
-        brightness(.82)
-        sepia(.15)
+        brightness(.78)
+        sepia(.10)
         hue-rotate(175deg);
 
     opacity:.90;
+}
+
+
+/*
+   Νυχτερινή λίγη συννεφιά.
+
+   ΔΕΝ χρησιμοποιούμε 🌙 + ☁️.
+
+   Είναι ΕΝΑ ενιαίο οπτικό εικονίδιο,
+   σχεδιασμένο με SVG, ώστε να φαίνεται
+   σαν ένα weather emoji.
+*/
+
+.night-partly-cloudy{
+
+    width:38px;
+
+    height:38px;
+
+    display:inline-block;
+
+    vertical-align:middle;
+
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='25' cy='23' r='15' fill='%2395a9bd'/%3E%3Cpath d='M15 42c0-6.5 5.3-11.8 11.8-11.8 4.3 0 8.1 2.3 10.1 5.8 1.1-.4 2.3-.6 3.5-.6 6.3 0 11.4 5.1 11.4 11.4H15.8C15.3 45.6 15 43.8 15 42z' fill='%23c7d0d9'/%3E%3Cpath d='M20 38c1.5-4.6 5.8-7.9 10.9-7.9 4.1 0 7.7 2.1 9.8 5.3' fill='none' stroke='%23e2e7eb' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+
+        center/
+
+        contain
+
+        no-repeat;
 }
 
 
@@ -458,6 +495,14 @@ body{
     font-size:25px;
 
     text-align:center;
+
+    height:32px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
 }
 
 .hour-data{
@@ -569,6 +614,7 @@ body{
 
         font-size:30px;
     }
+
 }
 
 </style>
@@ -725,23 +771,25 @@ let locationData = null;
 ===================================== */
 
 /*
-   ΠΡΟΣΟΧΗ:
+   ΕΔΩ είναι η οριστική διόρθωση.
 
-   Κάθε κατάσταση έχει ΕΝΑ emoji.
+   code 0 = καθαρός
+   code 1 = κυρίως αίθριος
+   code 2 = λίγες νεφώσεις
 
-   Τη νύχτα:
-   0,1,2 → φεγγάρι μόνο.
+   Τη νύχτα το code 2 ΔΕΝ επιστρέφει
+   ΠΟΤΕ το 🌤️.
 
-   Δεν υπάρχει πλέον:
-   🌙 + ☁️
-
-   Άρα ποτέ δύο emoji μαζί.
+   Επιστρέφει το ενιαίο
+   night-partly-cloudy icon.
 */
 
 function weatherIcon(code, isDay = true){
 
 
-    /* ΚΑΘΑΡΟΣ */
+    /* -----------------------------
+       ΚΑΘΑΡΟΣ ΟΥΡΑΝΟΣ
+    ----------------------------- */
 
     if(code === 0){
 
@@ -749,16 +797,17 @@ function weatherIcon(code, isDay = true){
 
             return "☀️";
 
-        }else{
-
-            return '<span class="night-moon">🌙</span>';
-
         }
+
+        return '<span class="night-moon">🌙</span>';
 
     }
 
 
-    /* ΚΥΡΙΩΣ ΑΙΘΡΙΟΣ */
+
+    /* -----------------------------
+       ΚΥΡΙΩΣ ΑΙΘΡΙΟΣ
+    ----------------------------- */
 
     if(code === 1){
 
@@ -766,16 +815,17 @@ function weatherIcon(code, isDay = true){
 
             return "🌤️";
 
-        }else{
-
-            return '<span class="night-moon">🌙</span>';
-
         }
+
+        return '<span class="night-moon">🌙</span>';
 
     }
 
 
-    /* ΛΙΓΕΣ ΝΕΦΩΣΕΙΣ */
+
+    /* -----------------------------
+       ΛΙΓΕΣ ΝΕΦΩΣΕΙΣ
+    ----------------------------- */
 
     if(code === 2){
 
@@ -783,21 +833,32 @@ function weatherIcon(code, isDay = true){
 
             return "🌤️";
 
-        }else{
-
-            /*
-               ΕΝΑ emoji μόνο.
-               Όχι ήλιος + σύννεφο.
-            */
-
-            return '<span class="night-moon">🌙</span>';
-
         }
+
+        /*
+           ΝΥΧΤΑ:
+
+           ΕΝΑ ενιαίο εικονίδιο
+           φεγγάρι + σύννεφο.
+
+           ΠΟΤΕ 🌤️.
+           ΠΟΤΕ δύο emoji.
+        */
+
+        return `
+            <span
+                class="night-partly-cloudy"
+                aria-label="Λίγες νεφώσεις τη νύχτα">
+            </span>
+        `;
 
     }
 
 
-    /* ΣΥΝΝΕΦΙΑ */
+
+    /* -----------------------------
+       ΣΥΝΝΕΦΙΑ
+    ----------------------------- */
 
     if(code === 3){
 
@@ -806,7 +867,10 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* ΟΜΙΧΛΗ */
+
+    /* -----------------------------
+       ΟΜΙΧΛΗ
+    ----------------------------- */
 
     if(
         [45,48].includes(code)
@@ -817,7 +881,10 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* ΨΙΛΟΒΡΟΧΟ */
+
+    /* -----------------------------
+       ΨΙΛΟΒΡΟΧΟ
+    ----------------------------- */
 
     if(
         [51,53,55,56,57].includes(code)
@@ -828,7 +895,10 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* ΒΡΟΧΗ */
+
+    /* -----------------------------
+       ΒΡΟΧΗ / ΧΙΟΝΟΝΕΡΟ
+    ----------------------------- */
 
     if(
         [61,63,65,66,67].includes(code)
@@ -839,7 +909,10 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* ΧΙΟΝΙ */
+
+    /* -----------------------------
+       ΧΙΟΝΙ
+    ----------------------------- */
 
     if(
         [71,73,75,77].includes(code)
@@ -850,7 +923,10 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* ΜΠΟΡΕΣ */
+
+    /* -----------------------------
+       ΜΠΟΡΕΣ
+    ----------------------------- */
 
     if(
         [80,81,82].includes(code)
@@ -861,7 +937,10 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* ΧΙΟΝΟΜΠΟΡΕΣ */
+
+    /* -----------------------------
+       ΧΙΟΝΟΜΠΟΡΕΣ
+    ----------------------------- */
 
     if(
         [85,86].includes(code)
@@ -872,7 +951,10 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* ΚΑΤΑΙΓΙΔΑ */
+
+    /* -----------------------------
+       ΚΑΤΑΙΓΙΔΑ
+    ----------------------------- */
 
     if(
         [95,96,99].includes(code)
@@ -883,17 +965,18 @@ function weatherIcon(code, isDay = true){
     }
 
 
-    /* FALLBACK */
+
+    /* -----------------------------
+       FALLBACK
+    ----------------------------- */
 
     if(isDay){
 
         return "🌤️";
 
-    }else{
-
-        return '<span class="night-moon">🌙</span>';
-
     }
+
+    return '<span class="night-moon">🌙</span>';
 
 }
 
@@ -958,6 +1041,7 @@ function weatherText(code){
         return "Καταιγίδα";
 
     return "Μεταβλητός καιρός";
+
 }
 
 
@@ -1078,7 +1162,9 @@ async function searchCity(){
         .innerHTML =
 
         `<div class="loading">
+
             Αναζήτηση πόλης...
+
          </div>`;
 
 
@@ -1183,15 +1269,6 @@ async function loadWeather(){
 
 
 
-    /*
-       Κοινές παράμετροι.
-
-       timezone=auto:
-
-       Η ώρα προσαρμόζεται αυτόματα
-       στην περιοχή της πόλης.
-    */
-
     const common =
 
         "latitude=" +
@@ -1206,9 +1283,7 @@ async function loadWeather(){
 
 
 
-    /* =================================
-       CURRENT
-    ================================= */
+    /* CURRENT */
 
     const current =
 
@@ -1228,9 +1303,7 @@ async function loadWeather(){
 
 
 
-    /* =================================
-       HOURLY
-    ================================= */
+    /* HOURLY */
 
     const hourly =
 
@@ -1260,9 +1333,7 @@ async function loadWeather(){
 
 
 
-    /* =================================
-       DAILY
-    ================================= */
+    /* DAILY */
 
     const daily =
 
@@ -1286,9 +1357,7 @@ async function loadWeather(){
 
 
 
-    /* =================================
-       ECMWF
-    ================================= */
+    /* ECMWF */
 
     const ecmwfUrl =
 
@@ -1309,15 +1378,16 @@ async function loadWeather(){
 
 
 
-    /* =================================
-       GFS
-    ================================= */
+    /* GFS */
 
     const gfsUrl =
 
         "https://api.open-meteo.com/v1/forecast?" +
 
         common +
+
+        "&current=" +
+        current +
 
         "&hourly=" +
         hourly +
@@ -1329,15 +1399,16 @@ async function loadWeather(){
 
 
 
-    /* =================================
-       ICON
-    ================================= */
+    /* ICON */
 
     const iconUrl =
 
         "https://api.open-meteo.com/v1/forecast?" +
 
         common +
+
+        "&current=" +
+        current +
 
         "&hourly=" +
         hourly +
@@ -1409,7 +1480,7 @@ async function loadWeather(){
 
 
 /* =====================================
-   CURRENT WEATHER
+   CURRENT
 ===================================== */
 
 function renderCurrent(){
@@ -1418,13 +1489,6 @@ function renderCurrent(){
     const d =
         weatherData.ecmwf;
 
-
-
-    /*
-       ΠΡΑΓΜΑΤΙΚΟ CURRENT.
-
-       Όχι hourly[0].
-    */
 
     const temp =
         d.current.temperature_2m;
@@ -1468,7 +1532,9 @@ function renderCurrent(){
             </h2>
 
             <div class="temperature">
+
                 ${Math.round(temp)}°C
+
             </div>
 
             <div class="condition">
@@ -1493,7 +1559,9 @@ function renderCurrent(){
                     </span>
 
                     <strong>
+
                         ${Math.round(humidity)}%
+
                     </strong>
 
                 </div>
@@ -1509,7 +1577,6 @@ function renderCurrent(){
 
                         ${Math.round(wind)}
                         km/h
-
                         —
                         ${windDir}
 
@@ -1557,7 +1624,6 @@ function renderForecast(){
     let html = "";
 
 
-
     for(
         let i = 0;
         i < d.time.length;
@@ -1572,24 +1638,17 @@ function renderForecast(){
 
 
         const rain =
-            d.precipitation_probability_max[i] || 0;
+            d.precipitation_probability_max[i]
+            || 0;
 
 
         const snow =
             Number(
-                d.snowfall_sum[i] || 0
+                d.snowfall_sum[i]
+                || 0
             );
 
 
-
-        /*
-           Αν υπάρχει χιόνι,
-           εμφανίζουμε cm.
-
-           Αν όχι,
-           εμφανίζουμε πιθανότητα
-           βροχής.
-        */
 
         let precipitationInfo = "";
 
@@ -1597,11 +1656,13 @@ function renderForecast(){
         if(snow > 0){
 
             precipitationInfo =
+
                 `❄️ ${snow.toFixed(1)} cm`;
 
         }else{
 
             precipitationInfo =
+
                 `💧 ${Math.round(rain)}%`;
 
         }
@@ -1681,7 +1742,7 @@ function renderForecast(){
 
 
 /* =====================================
-   HOURLY FORECAST
+   HOURLY
 ===================================== */
 
 function showHourly(dayIndex){
@@ -1701,12 +1762,6 @@ function showHourly(dayIndex){
     const rows = [];
 
 
-
-    /*
-       Παίρνουμε όλες τις ώρες
-       της συγκεκριμένης ημέρας.
-    */
-
     for(
         let i = 0;
         i < d.time.length;
@@ -1724,10 +1779,8 @@ function showHourly(dayIndex){
     }
 
 
-
     const formatted =
         formatDate(date);
-
 
 
     document
@@ -1743,9 +1796,7 @@ function showHourly(dayIndex){
         formatted.date;
 
 
-
     let html = "";
-
 
 
     rows.forEach(i => {
@@ -1756,19 +1807,16 @@ function showHourly(dayIndex){
             .substring(11,16);
 
 
-
         const temp =
             Math.round(
                 d.temperature_2m[i]
             );
 
 
-
         const feels =
             Math.round(
                 d.apparent_temperature[i]
             );
-
 
 
         const rain =
@@ -1778,27 +1826,12 @@ function showHourly(dayIndex){
             );
 
 
-
         const precipitation =
             Number(
                 d.precipitation[i]
                 || 0
             ).toFixed(1);
 
-
-
-        /*
-           SNOWFALL:
-
-           Το Open-Meteo δίνει
-           snowfall σε cm.
-
-           Άρα ΔΕΝ το μετατρέπουμε
-           από mm.
-
-           Το εμφανίζουμε απευθείας
-           σε cm.
-        */
 
         const snowfall =
             Number(
@@ -1807,12 +1840,10 @@ function showHourly(dayIndex){
             );
 
 
-
         const wind =
             Math.round(
                 d.wind_speed_10m[i]
             );
-
 
 
         const windDir =
@@ -1821,18 +1852,31 @@ function showHourly(dayIndex){
             );
 
 
-
         const clouds =
             Math.round(
                 d.cloud_cover[i]
             );
 
 
-
         const isDay =
             d.is_day[i] === 1;
 
 
+        /*
+           ΕΔΩ καλείται η διορθωμένη
+           weatherIcon().
+
+           Άρα:
+
+           ημέρα + λίγες νεφώσεις
+           → 🌤️
+
+           νύχτα + λίγες νεφώσεις
+           → ΕΝΑ ενιαίο εικονίδιο
+             φεγγάρι/σύννεφο
+
+           ΠΟΤΕ 🌤️ τη νύχτα.
+        */
 
         const icon =
             weatherIcon(
@@ -1841,20 +1885,7 @@ function showHourly(dayIndex){
             );
 
 
-
-        /*
-           ΑΝ ΧΙΟΝΙΖΕΙ:
-
-           δείχνουμε cm.
-
-           ΑΝ ΔΕΝ ΧΙΟΝΙΖΕΙ:
-
-           δείχνουμε πιθανότητα
-           βροχής + mm υετού.
-        */
-
         let precipitationHTML = "";
-
 
 
         if(snowfall > 0){
@@ -1910,6 +1941,7 @@ function showHourly(dayIndex){
             <div class="hour-data">
 
                 🌡️
+
                 <b>
                     ${temp}°
                 </b>
@@ -1959,12 +1991,10 @@ function showHourly(dayIndex){
     });
 
 
-
     document
         .getElementById("hourly")
         .innerHTML =
         html;
-
 
 
     const section =
@@ -1974,10 +2004,8 @@ function showHourly(dayIndex){
         );
 
 
-
     section.style.display =
         "block";
-
 
 
     section.scrollIntoView({
@@ -2035,6 +2063,7 @@ document
 ===================================== */
 
 searchCity();
+
 
 </script>
 
